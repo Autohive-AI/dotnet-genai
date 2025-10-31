@@ -37,6 +37,17 @@ namespace Google.GenAI.Types {
     public List<string> ? ExcludeDomains { get; set; }
 
     /// <summary>
+    /// Optional. Sites with confidence level chosen &amp; above this value will be blocked from the
+    /// search results.
+    /// </summary>
+    [JsonPropertyName("blockingConfidence")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public PhishBlockThreshold
+        ? BlockingConfidence {
+            get; set;
+          }
+
+    /// <summary>
     /// Deserializes a JSON string to a EnterpriseWebSearch object.
     /// </summary>
     /// <param name="jsonString">The JSON string to deserialize.</param>

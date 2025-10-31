@@ -36,6 +36,17 @@ namespace Google.GenAI.Types {
     public List<string> ? ExcludeDomains { get; set; }
 
     /// <summary>
+    /// Optional. Sites with confidence level chosen &amp; above this value will be blocked from the
+    /// search results. This field is not supported in Gemini API.
+    /// </summary>
+    [JsonPropertyName("blockingConfidence")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public PhishBlockThreshold
+        ? BlockingConfidence {
+            get; set;
+          }
+
+    /// <summary>
     /// Optional. Filter search results to a specific time range. If customers set a start time,
     /// they must set an end time (and vice versa). This field is not supported in Vertex AI.
     /// </summary>

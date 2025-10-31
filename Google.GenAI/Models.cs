@@ -1265,6 +1265,12 @@ namespace Google.GenAI {
         throw new NotSupportedException("excludeDomains parameter is not supported in Gemini API.");
       }
 
+      if (!Common.IsZero(
+              Common.GetValueByPath(fromObject, new string[] { "blockingConfidence" }))) {
+        throw new NotSupportedException(
+            "blockingConfidence parameter is not supported in Gemini API.");
+      }
+
       if (Common.GetValueByPath(fromObject, new string[] { "timeRangeFilter" }) != null) {
         Common.SetValueByPath(
             toObject, new string[] { "timeRangeFilter" },
