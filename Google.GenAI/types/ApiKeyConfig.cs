@@ -23,16 +23,53 @@ using Google.GenAI.Serialization;
 
 namespace Google.GenAI.Types {
   /// <summary>
-  /// Config for authentication with API key.
+  /// Config for authentication with API key. This data type is not supported in Gemini API.
   /// </summary>
 
   public record ApiKeyConfig {
     /// <summary>
-    /// The API key to be used in the request directly.
+    /// Optional. The name of the SecretManager secret version resource storing the API key. Format:
+    /// `projects/{project}/secrets/{secrete}/versions/{version}` - If both `api_key_secret` and
+    /// `api_key_string` are specified, this field takes precedence over `api_key_string`. - If
+    /// specified, the `secretmanager.versions.access` permission should be granted to Vertex AI
+    /// Extension Service Agent
+    /// (https://cloud.google.com/vertex-ai/docs/general/access-control#service-agents) on the
+    /// specified resource.
+    /// </summary>
+    [JsonPropertyName("apiKeySecret")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string ? ApiKeySecret { get; set; }
+
+    /// <summary>
+    /// Optional. The API key to be used in the request directly.
     /// </summary>
     [JsonPropertyName("apiKeyString")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string ? ApiKeyString { get; set; }
+    public string
+        ? ApiKeyString {
+            get; set;
+          }
+
+    /// <summary>
+    /// Optional. The location of the API key.
+    /// </summary>
+    [JsonPropertyName("httpElementLocation")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public HttpElementLocation
+        ? HttpElementLocation {
+            get; set;
+          }
+
+    /// <summary>
+    /// Optional. The parameter name of the API key. E.g. If the API request is
+    /// "https://example.com/act?api_key=", "api_key" would be the parameter name.
+    /// </summary>
+    [JsonPropertyName("name")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string
+        ? Name {
+            get; set;
+          }
 
     /// <summary>
     /// Deserializes a JSON string to a ApiKeyConfig object.

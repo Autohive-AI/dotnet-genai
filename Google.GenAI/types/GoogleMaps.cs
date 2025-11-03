@@ -23,12 +23,13 @@ using Google.GenAI.Serialization;
 
 namespace Google.GenAI.Types {
   /// <summary>
-  /// Tool to support Google Maps in Model.
+  /// Tool to retrieve public maps data for grounding, powered by Google.
   /// </summary>
 
   public record GoogleMaps {
     /// <summary>
-    /// Optional. Auth config for the Google Maps tool.
+    /// The authentication config to access the API. Only API key is supported. This field is not
+    /// supported in Gemini API.
     /// </summary>
     [JsonPropertyName("authConfig")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

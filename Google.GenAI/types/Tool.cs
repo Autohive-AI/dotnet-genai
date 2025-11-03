@@ -58,16 +58,6 @@ namespace Google.GenAI.Types {
           }
 
     /// <summary>
-    /// Optional. Google Maps tool type. Specialized retrieval tool that is powered by Google Maps.
-    /// </summary>
-    [JsonPropertyName("googleMaps")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public GoogleMaps
-        ? GoogleMaps {
-            get; set;
-          }
-
-    /// <summary>
     /// Optional. Tool to support the model interacting directly with the computer. If enabled, it
     /// automatically populates computer-use specific Function Declarations.
     /// </summary>
@@ -96,6 +86,16 @@ namespace Google.GenAI.Types {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public EnterpriseWebSearch
         ? EnterpriseWebSearch {
+            get; set;
+          }
+
+    /// <summary>
+    /// Optional. GoogleMaps tool type. Tool to support Google Maps in Model.
+    /// </summary>
+    [JsonPropertyName("googleMaps")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public GoogleMaps
+        ? GoogleMaps {
             get; set;
           }
 

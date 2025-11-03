@@ -23,7 +23,7 @@ using Google.GenAI.Serialization;
 
 namespace Google.GenAI.Types {
   /// <summary>
-  /// Auth configuration to run the extension.
+  /// Auth configuration to run the extension. This data type is not supported in Gemini API.
   /// </summary>
 
   public record AuthConfig {

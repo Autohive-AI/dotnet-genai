@@ -1875,14 +1875,6 @@ namespace Google.GenAI {
             Common.GetValueByPath(fromObject, new string[] { "googleSearchRetrieval" }));
       }
 
-      if (Common.GetValueByPath(fromObject, new string[] { "googleMaps" }) != null) {
-        Common.SetValueByPath(
-            toObject, new string[] { "googleMaps" },
-            GoogleMapsToMldev(JsonNode.Parse(JsonSerializer.Serialize(Common.GetValueByPath(
-                                  fromObject, new string[] { "googleMaps" }))),
-                              toObject));
-      }
-
       if (Common.GetValueByPath(fromObject, new string[] { "computerUse" }) != null) {
         Common.SetValueByPath(toObject, new string[] { "computerUse" },
                               Common.GetValueByPath(fromObject, new string[] { "computerUse" }));
@@ -1897,6 +1889,14 @@ namespace Google.GenAI {
               Common.GetValueByPath(fromObject, new string[] { "enterpriseWebSearch" }))) {
         throw new NotSupportedException(
             "enterpriseWebSearch parameter is not supported in Gemini API.");
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "googleMaps" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "googleMaps" },
+            GoogleMapsToMldev(JsonNode.Parse(JsonSerializer.Serialize(Common.GetValueByPath(
+                                  fromObject, new string[] { "googleMaps" }))),
+                              toObject));
       }
 
       if (Common.GetValueByPath(fromObject, new string[] { "googleSearch" }) != null) {
@@ -1941,11 +1941,6 @@ namespace Google.GenAI {
             Common.GetValueByPath(fromObject, new string[] { "googleSearchRetrieval" }));
       }
 
-      if (Common.GetValueByPath(fromObject, new string[] { "googleMaps" }) != null) {
-        Common.SetValueByPath(toObject, new string[] { "googleMaps" },
-                              Common.GetValueByPath(fromObject, new string[] { "googleMaps" }));
-      }
-
       if (Common.GetValueByPath(fromObject, new string[] { "computerUse" }) != null) {
         Common.SetValueByPath(toObject, new string[] { "computerUse" },
                               Common.GetValueByPath(fromObject, new string[] { "computerUse" }));
@@ -1960,6 +1955,11 @@ namespace Google.GenAI {
         Common.SetValueByPath(
             toObject, new string[] { "enterpriseWebSearch" },
             Common.GetValueByPath(fromObject, new string[] { "enterpriseWebSearch" }));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "googleMaps" }) != null) {
+        Common.SetValueByPath(toObject, new string[] { "googleMaps" },
+                              Common.GetValueByPath(fromObject, new string[] { "googleMaps" }));
       }
 
       if (Common.GetValueByPath(fromObject, new string[] { "googleSearch" }) != null) {
