@@ -352,6 +352,58 @@ namespace Google.GenAI {
       return toObject;
     }
 
+    internal JsonNode FunctionCallToMldev(JsonNode fromObject, JsonObject parentObject) {
+      JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "id" }) != null) {
+        Common.SetValueByPath(toObject, new string[] { "id" },
+                              Common.GetValueByPath(fromObject, new string[] { "id" }));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "args" }) != null) {
+        Common.SetValueByPath(toObject, new string[] { "args" },
+                              Common.GetValueByPath(fromObject, new string[] { "args" }));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "name" }) != null) {
+        Common.SetValueByPath(toObject, new string[] { "name" },
+                              Common.GetValueByPath(fromObject, new string[] { "name" }));
+      }
+
+      if (!Common.IsZero(Common.GetValueByPath(fromObject, new string[] { "partialArgs" }))) {
+        throw new NotSupportedException("partialArgs parameter is not supported in Gemini API.");
+      }
+
+      if (!Common.IsZero(Common.GetValueByPath(fromObject, new string[] { "willContinue" }))) {
+        throw new NotSupportedException("willContinue parameter is not supported in Gemini API.");
+      }
+
+      return toObject;
+    }
+
+    internal JsonNode FunctionCallingConfigToMldev(JsonNode fromObject, JsonObject parentObject) {
+      JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "mode" }) != null) {
+        Common.SetValueByPath(toObject, new string[] { "mode" },
+                              Common.GetValueByPath(fromObject, new string[] { "mode" }));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "allowedFunctionNames" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "allowedFunctionNames" },
+            Common.GetValueByPath(fromObject, new string[] { "allowedFunctionNames" }));
+      }
+
+      if (!Common.IsZero(
+              Common.GetValueByPath(fromObject, new string[] { "streamFunctionCallArguments" }))) {
+        throw new NotSupportedException(
+            "streamFunctionCallArguments parameter is not supported in Gemini API.");
+      }
+
+      return toObject;
+    }
+
     internal JsonNode FunctionDeclarationToVertex(JsonNode fromObject, JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
 
@@ -518,8 +570,11 @@ namespace Google.GenAI {
       }
 
       if (Common.GetValueByPath(fromObject, new string[] { "toolConfig" }) != null) {
-        Common.SetValueByPath(parentObject, new string[] { "toolConfig" },
-                              Common.GetValueByPath(fromObject, new string[] { "toolConfig" }));
+        Common.SetValueByPath(
+            parentObject, new string[] { "toolConfig" },
+            ToolConfigToMldev(JsonNode.Parse(JsonSerializer.Serialize(Common.GetValueByPath(
+                                  fromObject, new string[] { "toolConfig" }))),
+                              toObject));
       }
 
       if (!Common.IsZero(Common.GetValueByPath(fromObject, new string[] { "labels" }))) {
@@ -1439,11 +1494,6 @@ namespace Google.GenAI {
     internal JsonNode PartToMldev(JsonNode fromObject, JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
 
-      if (Common.GetValueByPath(fromObject, new string[] { "functionCall" }) != null) {
-        Common.SetValueByPath(toObject, new string[] { "functionCall" },
-                              Common.GetValueByPath(fromObject, new string[] { "functionCall" }));
-      }
-
       if (Common.GetValueByPath(fromObject, new string[] { "codeExecutionResult" }) != null) {
         Common.SetValueByPath(
             toObject, new string[] { "codeExecutionResult" },
@@ -1461,6 +1511,14 @@ namespace Google.GenAI {
             FileDataToMldev(JsonNode.Parse(JsonSerializer.Serialize(
                                 Common.GetValueByPath(fromObject, new string[] { "fileData" }))),
                             toObject));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "functionCall" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "functionCall" },
+            FunctionCallToMldev(JsonNode.Parse(JsonSerializer.Serialize(Common.GetValueByPath(
+                                    fromObject, new string[] { "functionCall" }))),
+                                toObject));
       }
 
       if (Common.GetValueByPath(fromObject, new string[] { "functionResponse" }) != null) {
@@ -1923,6 +1981,26 @@ namespace Google.GenAI {
               Common.GetValueByPath(fromObject, new string[] { "multiSpeakerVoiceConfig" }))) {
         throw new NotSupportedException(
             "multiSpeakerVoiceConfig parameter is not supported in Vertex AI.");
+      }
+
+      return toObject;
+    }
+
+    internal JsonNode ToolConfigToMldev(JsonNode fromObject, JsonObject parentObject) {
+      JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "functionCallingConfig" }) != null) {
+        Common.SetValueByPath(toObject, new string[] { "functionCallingConfig" },
+                              FunctionCallingConfigToMldev(
+                                  JsonNode.Parse(JsonSerializer.Serialize(Common.GetValueByPath(
+                                      fromObject, new string[] { "functionCallingConfig" }))),
+                                  toObject));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "retrievalConfig" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "retrievalConfig" },
+            Common.GetValueByPath(fromObject, new string[] { "retrievalConfig" }));
       }
 
       return toObject;

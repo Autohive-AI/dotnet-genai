@@ -106,6 +106,35 @@ namespace Google.GenAI {
       return toObject;
     }
 
+    internal JsonNode FunctionCallToMldev(JsonNode fromObject, JsonObject parentObject) {
+      JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "id" }) != null) {
+        Common.SetValueByPath(toObject, new string[] { "id" },
+                              Common.GetValueByPath(fromObject, new string[] { "id" }));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "args" }) != null) {
+        Common.SetValueByPath(toObject, new string[] { "args" },
+                              Common.GetValueByPath(fromObject, new string[] { "args" }));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "name" }) != null) {
+        Common.SetValueByPath(toObject, new string[] { "name" },
+                              Common.GetValueByPath(fromObject, new string[] { "name" }));
+      }
+
+      if (!Common.IsZero(Common.GetValueByPath(fromObject, new string[] { "partialArgs" }))) {
+        throw new NotSupportedException("partialArgs parameter is not supported in Gemini API.");
+      }
+
+      if (!Common.IsZero(Common.GetValueByPath(fromObject, new string[] { "willContinue" }))) {
+        throw new NotSupportedException("willContinue parameter is not supported in Gemini API.");
+      }
+
+      return toObject;
+    }
+
     internal JsonNode FunctionDeclarationToVertex(JsonNode fromObject, JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
 
@@ -1107,11 +1136,6 @@ namespace Google.GenAI {
     internal JsonNode PartToMldev(JsonNode fromObject, JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
 
-      if (Common.GetValueByPath(fromObject, new string[] { "functionCall" }) != null) {
-        Common.SetValueByPath(toObject, new string[] { "functionCall" },
-                              Common.GetValueByPath(fromObject, new string[] { "functionCall" }));
-      }
-
       if (Common.GetValueByPath(fromObject, new string[] { "codeExecutionResult" }) != null) {
         Common.SetValueByPath(
             toObject, new string[] { "codeExecutionResult" },
@@ -1129,6 +1153,14 @@ namespace Google.GenAI {
             FileDataToMldev(JsonNode.Parse(JsonSerializer.Serialize(
                                 Common.GetValueByPath(fromObject, new string[] { "fileData" }))),
                             toObject));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "functionCall" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "functionCall" },
+            FunctionCallToMldev(JsonNode.Parse(JsonSerializer.Serialize(Common.GetValueByPath(
+                                    fromObject, new string[] { "functionCall" }))),
+                                toObject));
       }
 
       if (Common.GetValueByPath(fromObject, new string[] { "functionResponse" }) != null) {

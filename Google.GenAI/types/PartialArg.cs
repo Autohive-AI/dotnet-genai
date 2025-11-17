@@ -23,54 +23,61 @@ using Google.GenAI.Serialization;
 
 namespace Google.GenAI.Types {
   /// <summary>
-  /// A function call.
+  /// Partial argument value of the function call. This data type is not supported in Gemini API.
   /// </summary>
 
-  public record FunctionCall {
+  public record PartialArg {
     /// <summary>
-    /// The unique id of the function call. If populated, the client to execute the `function_call`
-    /// and return the response with the matching `id`.
+    /// Optional. Represents a null value.
     /// </summary>
-    [JsonPropertyName("id")]
+    [JsonPropertyName("nullValue")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string ? Id { get; set; }
+    public string ? NullValue { get; set; }
 
     /// <summary>
-    /// Optional. The function parameters and values in JSON object format. See
-    /// [FunctionDeclaration.parameters] for parameter details.
+    /// Optional. Represents a double value.
     /// </summary>
-    [JsonPropertyName("args")]
+    [JsonPropertyName("numberValue")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, object>
-        ? Args {
+    public double
+        ? NumberValue {
             get; set;
           }
 
     /// <summary>
-    /// Optional. The name of the function to call. Matches [FunctionDeclaration.name].
+    /// Optional. Represents a string value.
     /// </summary>
-    [JsonPropertyName("name")]
+    [JsonPropertyName("stringValue")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string
-        ? Name {
+        ? StringValue {
             get; set;
           }
 
     /// <summary>
-    /// Optional. The partial argument value of the function call. If provided, represents the
-    /// arguments/fields that are streamed incrementally. This field is not supported in Gemini API.
+    /// Optional. Represents a boolean value.
     /// </summary>
-    [JsonPropertyName("partialArgs")]
+    [JsonPropertyName("boolValue")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<PartialArg>
-        ? PartialArgs {
+    public bool
+        ? BoolValue {
             get; set;
           }
 
     /// <summary>
-    /// Optional. Whether this is the last part of the FunctionCall. If true, another partial
-    /// message for the current FunctionCall is expected to follow. This field is not supported in
-    /// Gemini API.
+    /// A JSON Path (RFC 9535) to the argument being streamed.
+    /// https://datatracker.ietf.org/doc/html/rfc9535. e.g. "$.foo.bar[0].data".
+    /// </summary>
+    [JsonPropertyName("jsonPath")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string
+        ? JsonPath {
+            get; set;
+          }
+
+    /// <summary>
+    /// Optional. Whether this is not the last part of the same json_path. If true, another
+    /// PartialArg message for the current json_path is expected to follow.
     /// </summary>
     [JsonPropertyName("willContinue")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -80,15 +87,14 @@ namespace Google.GenAI.Types {
           }
 
     /// <summary>
-    /// Deserializes a JSON string to a FunctionCall object.
+    /// Deserializes a JSON string to a PartialArg object.
     /// </summary>
     /// <param name="jsonString">The JSON string to deserialize.</param>
     /// <param name="options">Optional JsonSerializerOptions.</param>
-    /// <returns>The deserialized FunctionCall object, or null if deserialization fails.</returns>
-    public static FunctionCall
-        ? FromJson(string jsonString, JsonSerializerOptions? options = null) {
+    /// <returns>The deserialized PartialArg object, or null if deserialization fails.</returns>
+    public static PartialArg ? FromJson(string jsonString, JsonSerializerOptions? options = null) {
       try {
-        return JsonSerializer.Deserialize<FunctionCall>(jsonString, options);
+        return JsonSerializer.Deserialize<PartialArg>(jsonString, options);
       } catch (JsonException e) {
         Console.Error.WriteLine($"Error deserializing JSON: {e.ToString()}");
         return null;
