@@ -28,11 +28,21 @@ namespace Google.GenAI.Types {
 
   public record ImportFileResponse {
     /// <summary>
+    /// Used to retain the full HTTP response.
+    /// </summary>
+    [JsonPropertyName("sdkHttpResponse")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public HttpResponse ? SdkHttpResponse { get; set; }
+
+    /// <summary>
     /// The name of the FileSearchStore containing Documents.
     /// </summary>
     [JsonPropertyName("parent")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string ? Parent { get; set; }
+    public string
+        ? Parent {
+            get; set;
+          }
 
     /// <summary>
     /// The identifier for the Document imported.

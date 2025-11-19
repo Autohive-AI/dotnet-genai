@@ -28,11 +28,21 @@ namespace Google.GenAI.Types {
 
   public record CountTokensResponse {
     /// <summary>
+    /// Used to retain the full HTTP response.
+    /// </summary>
+    [JsonPropertyName("sdkHttpResponse")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public HttpResponse ? SdkHttpResponse { get; set; }
+
+    /// <summary>
     /// Total number of tokens.
     /// </summary>
     [JsonPropertyName("totalTokens")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int ? TotalTokens { get; set; }
+    public int
+        ? TotalTokens {
+            get; set;
+          }
 
     /// <summary>
     /// Number of tokens in the cached part of the prompt (the cached content).

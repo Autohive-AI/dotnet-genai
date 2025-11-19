@@ -28,13 +28,23 @@ namespace Google.GenAI.Types {
 
   public record ComputeTokensResponse {
     /// <summary>
+    /// Used to retain the full HTTP response.
+    /// </summary>
+    [JsonPropertyName("sdkHttpResponse")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public HttpResponse ? SdkHttpResponse { get; set; }
+
+    /// <summary>
     /// Lists of tokens info from the input. A ComputeTokensRequest could have multiple instances
     /// with a prompt in each instance. We also need to return lists of tokens info for the request
     /// with multiple instances.
     /// </summary>
     [JsonPropertyName("tokensInfo")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<TokensInfo> ? TokensInfo { get; set; }
+    public List<TokensInfo>
+        ? TokensInfo {
+            get; set;
+          }
 
     /// <summary>
     /// Deserializes a JSON string to a ComputeTokensResponse object.

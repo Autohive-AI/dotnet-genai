@@ -150,6 +150,12 @@ namespace Google.GenAI {
                                                       JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
 
+      if (Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "sdkHttpResponse" },
+            Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }));
+      }
+
       if (Common.GetValueByPath(fromObject, new string[] { "tokensInfo" }) != null) {
         Common.SetValueByPath(toObject, new string[] { "tokensInfo" },
                               Common.GetValueByPath(fromObject, new string[] { "tokensInfo" }));
@@ -307,6 +313,12 @@ namespace Google.GenAI {
     internal JsonNode CountTokensResponseFromMldev(JsonNode fromObject, JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
 
+      if (Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "sdkHttpResponse" },
+            Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }));
+      }
+
       if (Common.GetValueByPath(fromObject, new string[] { "totalTokens" }) != null) {
         Common.SetValueByPath(toObject, new string[] { "totalTokens" },
                               Common.GetValueByPath(fromObject, new string[] { "totalTokens" }));
@@ -323,6 +335,12 @@ namespace Google.GenAI {
 
     internal JsonNode CountTokensResponseFromVertex(JsonNode fromObject, JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "sdkHttpResponse" },
+            Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }));
+      }
 
       if (Common.GetValueByPath(fromObject, new string[] { "totalTokens" }) != null) {
         Common.SetValueByPath(toObject, new string[] { "totalTokens" },
@@ -469,6 +487,12 @@ namespace Google.GenAI {
 
     internal JsonNode EditImageResponseFromVertex(JsonNode fromObject, JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "sdkHttpResponse" },
+            Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }));
+      }
 
       if (Common.GetValueByPath(fromObject, new string[] { "predictions" }) != null) {
         JsonArray keyArray =
@@ -1035,6 +1059,12 @@ namespace Google.GenAI {
                                                        JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
 
+      if (Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "sdkHttpResponse" },
+            Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }));
+      }
+
       if (Common.GetValueByPath(fromObject, new string[] { "candidates" }) != null) {
         JsonArray keyArray =
             (JsonArray)Common.GetValueByPath(fromObject, new string[] { "candidates" });
@@ -1073,6 +1103,12 @@ namespace Google.GenAI {
     internal JsonNode GenerateContentResponseFromVertex(JsonNode fromObject,
                                                         JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "sdkHttpResponse" },
+            Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }));
+      }
 
       if (Common.GetValueByPath(fromObject, new string[] { "candidates" }) != null) {
         Common.SetValueByPath(toObject, new string[] { "candidates" },
@@ -1351,6 +1387,12 @@ namespace Google.GenAI {
                                                       JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
 
+      if (Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "sdkHttpResponse" },
+            Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }));
+      }
+
       if (Common.GetValueByPath(fromObject, new string[] { "predictions" }) != null) {
         JsonArray keyArray =
             (JsonArray)Common.GetValueByPath(fromObject, new string[] { "predictions" });
@@ -1379,6 +1421,12 @@ namespace Google.GenAI {
     internal JsonNode GenerateImagesResponseFromVertex(JsonNode fromObject,
                                                        JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "sdkHttpResponse" },
+            Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }));
+      }
 
       if (Common.GetValueByPath(fromObject, new string[] { "predictions" }) != null) {
         JsonArray keyArray =
@@ -2538,6 +2586,12 @@ namespace Google.GenAI {
 
     internal JsonNode UpscaleImageResponseFromVertex(JsonNode fromObject, JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "sdkHttpResponse" },
+            Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }));
+      }
 
       if (Common.GetValueByPath(fromObject, new string[] { "predictions" }) != null) {
         JsonArray keyArray =

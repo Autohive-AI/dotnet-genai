@@ -23,38 +23,37 @@ using Google.GenAI.Serialization;
 
 namespace Google.GenAI.Types {
   /// <summary>
-  /// Response for the request to edit an image.
+  /// A wrapper class for the http response.
   /// </summary>
 
-  public record EditImageResponse {
+  public record HttpResponse {
     /// <summary>
-    /// Used to retain the full HTTP response.
+    /// Used to retain the processed HTTP headers in the response.
     /// </summary>
-    [JsonPropertyName("sdkHttpResponse")]
+    [JsonPropertyName("headers")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public HttpResponse ? SdkHttpResponse { get; set; }
+    public Dictionary<string, string> ? Headers { get; set; }
 
     /// <summary>
-    /// Generated images.
+    /// The raw HTTP response body, in JSON format.
     /// </summary>
-    [JsonPropertyName("generatedImages")]
+    [JsonPropertyName("body")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<GeneratedImage>
-        ? GeneratedImages {
+    public string
+        ? Body {
             get; set;
           }
 
     /// <summary>
-    /// Deserializes a JSON string to a EditImageResponse object.
+    /// Deserializes a JSON string to a HttpResponse object.
     /// </summary>
     /// <param name="jsonString">The JSON string to deserialize.</param>
     /// <param name="options">Optional JsonSerializerOptions.</param>
-    /// <returns>The deserialized EditImageResponse object, or null if deserialization
-    /// fails.</returns>
-    public static EditImageResponse
+    /// <returns>The deserialized HttpResponse object, or null if deserialization fails.</returns>
+    public static HttpResponse
         ? FromJson(string jsonString, JsonSerializerOptions? options = null) {
       try {
-        return JsonSerializer.Deserialize<EditImageResponse>(jsonString, options);
+        return JsonSerializer.Deserialize<HttpResponse>(jsonString, options);
       } catch (JsonException e) {
         Console.Error.WriteLine($"Error deserializing JSON: {e.ToString()}");
         return null;
