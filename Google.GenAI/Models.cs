@@ -126,6 +126,38 @@ namespace Google.GenAI {
       return toObject;
     }
 
+    internal JsonNode ComputeTokensParametersToVertex(ApiClient apiClient, JsonNode fromObject,
+                                                      JsonObject parentObject) {
+      JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "model" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "_url", "model" },
+            Transformers.TModel(this._apiClient,
+                                Common.GetValueByPath(fromObject, new string[] { "model" })));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "contents" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "contents" },
+            Transformers.TContents(Common.GetValueByPath(fromObject, new string[] { "contents" })));
+      }
+
+      return toObject;
+    }
+
+    internal JsonNode ComputeTokensResponseFromVertex(JsonNode fromObject,
+                                                      JsonObject parentObject) {
+      JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "tokensInfo" }) != null) {
+        Common.SetValueByPath(toObject, new string[] { "tokensInfo" },
+                              Common.GetValueByPath(fromObject, new string[] { "tokensInfo" }));
+      }
+
+      return toObject;
+    }
+
     internal JsonNode ContentToMldev(JsonNode fromObject, JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
 
@@ -2994,6 +3026,74 @@ namespace Google.GenAI {
     }
 
     /// <summary>
+    /// Computes the number of tokens for the given content.
+    /// </summary>
+    /// <param name="model">The name of the GenAI model to use for token computation.</param>
+    /// <param name="contents">A <see cref="List{Content}"/> to compute tokens for.</param>
+    /// <param name="config">A <see cref="ComputeTokensConfig"/> instance that specifies the
+    /// optional configurations.</param> <returns>A <see cref="Task{ComputeTokensResponse}"/> that
+    /// represents the asynchronous operation. The task result contains a <see
+    /// cref="ComputeTokensResponse"/> instance with token information.</returns> <exception
+    /// cref="NotSupportedException">Thrown when called with a non-Vertex AI client.</exception>
+
+    public async Task<ComputeTokensResponse> ComputeTokensAsync(string model,
+                                                                List<Content> contents,
+                                                                ComputeTokensConfig config) {
+      ComputeTokensParameters parameter = new ComputeTokensParameters();
+
+      if (!Common.IsZero(model)) {
+        parameter.Model = model;
+      }
+      if (!Common.IsZero(contents)) {
+        parameter.Contents = contents;
+      }
+      if (!Common.IsZero(config)) {
+        parameter.Config = config;
+      }
+      string jsonString = JsonSerializer.Serialize(parameter);
+      JsonNode? parameterNode = JsonNode.Parse(jsonString);
+      if (parameterNode == null) {
+        throw new NotSupportedException("Failed to parse ComputeTokensParameters to JsonNode.");
+      }
+
+      JsonNode body;
+      string path;
+      if (this._apiClient.VertexAI) {
+        body = ComputeTokensParametersToVertex(this._apiClient, parameterNode, new JsonObject());
+        path = Common.FormatMap("{model}:computeTokens", body["_url"]);
+      } else {
+        throw new NotSupportedException("This method is only supported in the Vertex AI client.");
+      }
+      JsonObject? bodyObj = body?.AsObject();
+      bodyObj?.Remove("_url");
+      // TODO: Handle "_query" in the body (for list support).
+      bodyObj?.Remove("_query");
+      HttpOptions? requestHttpOptions = config?.HttpOptions;
+
+      ApiResponse response = await this._apiClient.RequestAsync(
+          HttpMethod.Post, path, JsonSerializer.Serialize(body), requestHttpOptions);
+      HttpContent httpContent = response.GetEntity();
+      string contentString = await httpContent.ReadAsStringAsync();
+      JsonNode? httpContentNode = JsonNode.Parse(contentString);
+      if (httpContentNode == null) {
+        throw new NotSupportedException("Failed to parse response to JsonNode.");
+      }
+      JsonNode responseNode = httpContentNode;
+
+      if (this._apiClient.VertexAI) {
+        responseNode = ComputeTokensResponseFromVertex(httpContentNode, new JsonObject());
+      }
+
+      if (!this._apiClient.VertexAI) {
+        throw new NotSupportedException("This method is only supported in the Vertex AI client.");
+      }
+
+      return JsonSerializer.Deserialize<ComputeTokensResponse>(responseNode.ToString()) ??
+             throw new InvalidOperationException(
+                 "Failed to deserialize Task<ComputeTokensResponse>.");
+    }
+
+    /// <summary>
     /// Generates content given a GenAI model and a list of content.
     /// </summary>
     /// <param name="model">The name of the GenAI model to use for generation.</param>
@@ -3184,6 +3284,38 @@ namespace Google.GenAI {
                                                             CountTokensConfig? config = null) {
       List<Content> contentList = Transformers.TContents(contents) ?? new List<Content>();
       return await CountTokensAsync(model, contentList, config);
+    }
+
+    /// <summary>
+    /// Computes the number of tokens for a single content item.
+    /// </summary>
+    /// <param name="model">The name of the GenAI model to use for token computation.</param>
+    /// <param name="contents">A <see cref="Content"/> instance to compute tokens for.</param>
+    /// <param name="config">A <see cref="ComputeTokensConfig"/> instance that specifies the
+    /// optional configurations.</param> <returns>A <see cref="Task{ComputeTokensResponse}"/> that
+    /// represents the asynchronous operation. The task result contains a <see
+    /// cref="ComputeTokensResponse"/> instance with token information.</returns> <exception
+    /// cref="NotSupportedException">Thrown when called with a non-Vertex AI client.</exception>
+    public async Task<ComputeTokensResponse> ComputeTokensAsync(
+        String model, Content contents, ComputeTokensConfig? config = null) {
+      List<Content> contentList = Transformers.TContents(contents) ?? new List<Content>();
+      return await ComputeTokensAsync(model, contentList, config);
+    }
+
+    /// <summary>
+    /// Computes the number of tokens for a text string.
+    /// </summary>
+    /// <param name="model">The name of the GenAI model to use for token computation.</param>
+    /// <param name="contents">A string of text to compute tokens for.</param>
+    /// <param name="config">A <see cref="ComputeTokensConfig"/> instance that specifies the
+    /// optional configurations.</param> <returns>A <see cref="Task{ComputeTokensResponse}"/> that
+    /// represents the asynchronous operation. The task result contains a <see
+    /// cref="ComputeTokensResponse"/> instance with token information.</returns> <exception
+    /// cref="NotSupportedException">Thrown when called with a non-Vertex AI client.</exception>
+    public async Task<ComputeTokensResponse> ComputeTokensAsync(
+        String model, String contents, ComputeTokensConfig? config = null) {
+      List<Content> contentList = Transformers.TContents(contents) ?? new List<Content>();
+      return await ComputeTokensAsync(model, contentList, config);
     }
   }
 }
