@@ -659,7 +659,7 @@ public class ListCaches {
 The `client.Tunings` module exposes model tuning. See `Create a client`
 section above to initialize a client.
 
-### Create Tuning Job
+### Create Tuning Job (Vertex Only)
 
 #### With simple training data
 
@@ -671,7 +671,7 @@ using Google.GenAI.Types;
 public class CreateTuningJobSimple {
   public static async Task main() {
     // assuming credentials are set up in environment variables as instructed above.
-    var client = new Client();
+    var client = new Client(vertexAI: true);
     var trainingDataset = new TuningDataset {
       GcsUri = "gs://cloud-samples-data/ai-platform/generative_ai/gemini-2_0/text/sft_train_data.jsonl"
     };
@@ -698,7 +698,7 @@ using Google.GenAI.Types;
 public class CreateTuningJobWithConfig {
   public static async Task main() {
     // assuming credentials are set up in environment variables as instructed above.
-    var client = new Client();
+    var client = new Client(vertexAI: true);
     var trainingDataset = new TuningDataset {
       GcsUri = "gs://cloud-samples-data/ai-platform/generative_ai/gemini-2_0/text/sft_train_data.jsonl"
     };
@@ -721,7 +721,7 @@ public class CreateTuningJobWithConfig {
 }
 ```
 
-### Preference Tuning
+#### Preference Tuning
 
 You can perform preference tuning by setting `Method` to `TuningMethod.PREFERENCE_TUNING` in `CreateTuningJobConfig`.
 
@@ -733,7 +733,7 @@ using Google.GenAI.Types;
 public class PreferenceTuningJob {
   public static async Task main() {
     // assuming credentials are set up in environment variables as instructed above.
-    var client = new Client();
+    var client = new Client(vertexAI: true);
     var trainingDataset = new TuningDataset {
       GcsUri = "gs://cloud-samples-data/ai-platform/generative_ai/gemini-1_5/text/sft_train_data.jsonl"
     };
@@ -752,7 +752,7 @@ public class PreferenceTuningJob {
 }
 ```
 
-### Continuous Tuning
+#### Continuous Tuning
 
 You can perform continuous tuning on a previously tuned model by passing
 the tuned model's resource name as the `baseModel` parameter.
@@ -765,7 +765,7 @@ using Google.GenAI.Types;
 public class ContinuousTuningJob {
   public static async Task main() {
     // assuming credentials are set up in environment variables as instructed above.
-    var client = new Client();
+    var client = new Client(vertexAI: true);
     var trainingDataset = new TuningDataset {
       GcsUri = "gs://cloud-samples-data/ai-platform/generative_ai/gemini-2_0/text/sft_train_data.jsonl"
     };
@@ -777,5 +777,26 @@ public class ContinuousTuningJob {
     );
     Console.WriteLine(tuningJob.State);
   }
+}
+```
+
+### List Tuning Jobs
+```csharp
+using System.Threading.Tasks;
+using Google.GenAI;
+using Google.GenAI.Types;
+
+public class ListTuningJobs {
+    public static async Task main()
+    {
+        // assuming credentials are set up in environment variables as instructed above.
+        var client = new Client();
+        var pager = await client.Tunings.ListAsync(new ListTuningJobsConfig { PageSize = 2 });
+
+        await foreach(var tuningJob in pager)
+        {
+            Console.WriteLine($"Tuning job name: {tuningJob.Name}, State: {tuningJob.State}");
+        }
+    }
 }
 ```

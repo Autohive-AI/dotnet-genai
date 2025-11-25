@@ -539,8 +539,20 @@ namespace Google.GenAI
 
     internal static JsonNode TTuningJobStatus(JsonNode origin)
     {
-      // TODO(b/413510963): Complete this converter, currently a placeholder.
-      return origin;
+      string? status = origin.GetValue<string>();
+      switch (status)
+      {
+        case "ACTIVE":
+          return JsonValue.Create("JOB_STATE_SUCCEEDED")!;
+        case "CREATING":
+          return JsonValue.Create("JOB_STATE_RUNNING")!;
+        case "FAILED":
+          return JsonValue.Create("JOB_STATE_FAILED")!;
+        case "STATE_UNSPECIFIED":
+          return JsonValue.Create("JOB_STATE_UNSPECIFIED")!;
+        default:
+          return origin;
+      }
     }
 
     internal static JsonNode TBatchJobName(ApiClient apiClient, JsonNode origin)

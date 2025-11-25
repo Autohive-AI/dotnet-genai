@@ -344,6 +344,138 @@ namespace Google.GenAI {
       return toObject;
     }
 
+    internal JsonNode ListTuningJobsConfigToMldev(JsonNode fromObject, JsonObject parentObject,
+                                                  JsonNode rootObject) {
+      JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "pageSize" }) != null) {
+        Common.SetValueByPath(parentObject, new string[] { "_query", "pageSize" },
+                              Common.GetValueByPath(fromObject, new string[] { "pageSize" }));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "pageToken" }) != null) {
+        Common.SetValueByPath(parentObject, new string[] { "_query", "pageToken" },
+                              Common.GetValueByPath(fromObject, new string[] { "pageToken" }));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "filter" }) != null) {
+        Common.SetValueByPath(parentObject, new string[] { "_query", "filter" },
+                              Common.GetValueByPath(fromObject, new string[] { "filter" }));
+      }
+
+      return toObject;
+    }
+
+    internal JsonNode ListTuningJobsConfigToVertex(JsonNode fromObject, JsonObject parentObject,
+                                                   JsonNode rootObject) {
+      JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "pageSize" }) != null) {
+        Common.SetValueByPath(parentObject, new string[] { "_query", "pageSize" },
+                              Common.GetValueByPath(fromObject, new string[] { "pageSize" }));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "pageToken" }) != null) {
+        Common.SetValueByPath(parentObject, new string[] { "_query", "pageToken" },
+                              Common.GetValueByPath(fromObject, new string[] { "pageToken" }));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "filter" }) != null) {
+        Common.SetValueByPath(parentObject, new string[] { "_query", "filter" },
+                              Common.GetValueByPath(fromObject, new string[] { "filter" }));
+      }
+
+      return toObject;
+    }
+
+    internal JsonNode ListTuningJobsParametersToMldev(JsonNode fromObject, JsonObject parentObject,
+                                                      JsonNode rootObject) {
+      JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "config" }) != null) {
+        _ = ListTuningJobsConfigToMldev(
+            JsonNode.Parse(JsonSerializer.Serialize(
+                Common.GetValueByPath(fromObject, new string[] { "config" }))),
+            toObject, rootObject);
+      }
+
+      return toObject;
+    }
+
+    internal JsonNode ListTuningJobsParametersToVertex(JsonNode fromObject, JsonObject parentObject,
+                                                       JsonNode rootObject) {
+      JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "config" }) != null) {
+        _ = ListTuningJobsConfigToVertex(
+            JsonNode.Parse(JsonSerializer.Serialize(
+                Common.GetValueByPath(fromObject, new string[] { "config" }))),
+            toObject, rootObject);
+      }
+
+      return toObject;
+    }
+
+    internal JsonNode ListTuningJobsResponseFromMldev(JsonNode fromObject,
+                                                      JsonObject parentObject) {
+      JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "sdkHttpResponse" },
+            Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "nextPageToken" }) != null) {
+        Common.SetValueByPath(toObject, new string[] { "nextPageToken" },
+                              Common.GetValueByPath(fromObject, new string[] { "nextPageToken" }));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "tunedModels" }) != null) {
+        JsonArray keyArray =
+            (JsonArray)Common.GetValueByPath(fromObject, new string[] { "tunedModels" });
+        JsonArray result = new JsonArray();
+
+        foreach (var record in keyArray) {
+          result.Add(
+              TuningJobFromMldev(JsonNode.Parse(JsonSerializer.Serialize(record)), toObject));
+        }
+        Common.SetValueByPath(toObject, new string[] { "tuningJobs" }, result);
+      }
+
+      return toObject;
+    }
+
+    internal JsonNode ListTuningJobsResponseFromVertex(JsonNode fromObject,
+                                                       JsonObject parentObject) {
+      JsonObject toObject = new JsonObject();
+
+      if (Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }) != null) {
+        Common.SetValueByPath(
+            toObject, new string[] { "sdkHttpResponse" },
+            Common.GetValueByPath(fromObject, new string[] { "sdkHttpResponse" }));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "nextPageToken" }) != null) {
+        Common.SetValueByPath(toObject, new string[] { "nextPageToken" },
+                              Common.GetValueByPath(fromObject, new string[] { "nextPageToken" }));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "tuningJobs" }) != null) {
+        JsonArray keyArray =
+            (JsonArray)Common.GetValueByPath(fromObject, new string[] { "tuningJobs" });
+        JsonArray result = new JsonArray();
+
+        foreach (var record in keyArray) {
+          result.Add(
+              TuningJobFromVertex(JsonNode.Parse(JsonSerializer.Serialize(record)), toObject));
+        }
+        Common.SetValueByPath(toObject, new string[] { "tuningJobs" }, result);
+      }
+
+      return toObject;
+    }
+
     internal JsonNode TunedModelFromMldev(JsonNode fromObject, JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
 
@@ -741,6 +873,56 @@ namespace Google.GenAI {
              throw new InvalidOperationException("Failed to deserialize Task<TuningJob>.");
     }
 
+    private async Task<ListTuningJobsResponse> PrivateListAsync(ListTuningJobsConfig? config) {
+      ListTuningJobsParameters parameter = new ListTuningJobsParameters();
+
+      if (!Common.IsZero(config)) {
+        parameter.Config = config;
+      }
+      string jsonString = JsonSerializer.Serialize(parameter);
+      JsonNode? parameterNode = JsonNode.Parse(jsonString);
+      if (parameterNode == null) {
+        throw new NotSupportedException("Failed to parse ListTuningJobsParameters to JsonNode.");
+      }
+
+      JsonNode body;
+      string path;
+      if (this._apiClient.VertexAI) {
+        body = ListTuningJobsParametersToVertex(parameterNode, new JsonObject(), parameterNode);
+        path = Common.FormatMap("tuningJobs", body["_url"]);
+      } else {
+        body = ListTuningJobsParametersToMldev(parameterNode, new JsonObject(), parameterNode);
+        path = Common.FormatMap("tunedModels", body["_url"]);
+      }
+      JsonObject? bodyObj = body?.AsObject();
+      bodyObj?.Remove("_url");
+      // TODO: Handle "_query" in the body (for list support).
+      bodyObj?.Remove("_query");
+      HttpOptions? requestHttpOptions = config?.HttpOptions;
+
+      ApiResponse response = await this._apiClient.RequestAsync(
+          HttpMethod.Get, path, JsonSerializer.Serialize(body), requestHttpOptions);
+      HttpContent httpContent = response.GetEntity();
+      string contentString = await httpContent.ReadAsStringAsync();
+      JsonNode? httpContentNode = JsonNode.Parse(contentString);
+      if (httpContentNode == null) {
+        throw new NotSupportedException("Failed to parse response to JsonNode.");
+      }
+      JsonNode responseNode = httpContentNode;
+
+      if (this._apiClient.VertexAI) {
+        responseNode = ListTuningJobsResponseFromVertex(httpContentNode, new JsonObject());
+      }
+
+      if (!this._apiClient.VertexAI) {
+        responseNode = ListTuningJobsResponseFromMldev(httpContentNode, new JsonObject());
+      }
+
+      return JsonSerializer.Deserialize<ListTuningJobsResponse>(responseNode.ToString()) ??
+             throw new InvalidOperationException(
+                 "Failed to deserialize Task<ListTuningJobsResponse>.");
+    }
+
     private async Task<TuningJob> PrivateTuneAsync(string? baseModel, PreTunedModel? preTunedModel,
                                                    TuningDataset trainingDataset,
                                                    CreateTuningJobConfig? config) {
@@ -864,6 +1046,30 @@ namespace Google.GenAI {
 
       return JsonSerializer.Deserialize<TuningOperation>(responseNode.ToString()) ??
              throw new InvalidOperationException("Failed to deserialize Task<TuningOperation>.");
+    }
+
+    /// <summary>
+    /// Lists tuning jobs.
+    /// </summary>
+    /// <param name="config">A <see cref="ListTuningJobsConfig"/> instance that specifies the
+    /// optional configuration for the list request.</param> <returns>A Pager object that contains
+    /// one page of tuning jobs. When iterating over the pager, it automatically fetches the next
+    /// page if there are more.</returns>
+
+    public async Task<Pager<TuningJob, ListTuningJobsConfig, ListTuningJobsResponse>> ListAsync(
+        ListTuningJobsConfig? config = null) {
+      config ??= new ListTuningJobsConfig();
+      var initialResponse = await PrivateListAsync(config);
+
+      return new Pager<TuningJob, ListTuningJobsConfig, ListTuningJobsResponse>(
+          requestFunc: async cfg => await PrivateListAsync(cfg),
+          extractItems: response => response.TuningJobs,
+          extractNextPageToken: response => response.NextPageToken,
+          extractHttpResponse: response => response.SdkHttpResponse,
+          updateConfigPageToken: (cfg, token) => {
+            cfg.PageToken = token;
+            return cfg;
+          }, initialConfig: config, initialResponse: initialResponse, requestedPageSize: config.PageSize ?? 0);
     }
 
     /// <summary>

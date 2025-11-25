@@ -1,0 +1,265 @@
+{
+  "recordID": "ListTuningsTest.ListTuningsVertexTest",
+  "interactions": [
+    {
+      "request": {
+        "method": "POST",
+        "url": "/v1beta1/projects/REDACTED/locations/us-central1/tuningJobs",
+        "request": "POST /v1beta1/projects/REDACTED/locations/us-central1/tuningJobs HTTP/1.1",
+        "headers": {
+          "Content-Length": "202",
+          "Content-Type": "application/json; charset=utf-8",
+          "Test-Name": "ListTuningsTest.ListTuningsVertexTest"
+        },
+        "bodySegments": [
+          {
+            "baseModel": "gemini-2.5-flash",
+            "supervisedTuningSpec": {
+              "hyperParameters": {
+                "epochCount": 1
+              },
+              "trainingDatasetUri": "gs://cloud-samples-data/ai-platform/generative_ai/gemini-1_5/text/sft_train_data.jsonl"
+            }
+          }
+        ],
+        "previousRequest": "b4d6e60a9b97e7b98c63df9308728c5c88c0b40c398046772c63447b94608b4d",
+        "serverAddress": "us-central1-aiplatform.googleapis.com",
+        "port": 443,
+        "protocol": "https"
+      },
+      "shaSum": "71f90e1fcbf48a4ea00982fdc596ef6abbf6cc124e9b0b059c62e665004c4c31",
+      "response": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8",
+          "Date": "Sat, 22 Nov 2025 00:02:58 GMT",
+          "Server": "ESF",
+          "Vary": "Origin, X-Origin, Referer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "SAMEORIGIN",
+          "X-Xss-Protection": "0"
+        },
+        "bodySegments": [
+          {
+            "baseModel": "gemini-2.5-flash",
+            "createTime": "2025-11-22T00:02:58.116228Z",
+            "name": "projects/REDACTED/locations/us-central1/tuningJobs/7531394117549424640",
+            "state": "JOB_STATE_PENDING",
+            "supervisedTuningSpec": {
+              "hyperParameters": {
+                "epochCount": "1"
+              },
+              "trainingDatasetUri": "gs://cloud-samples-data/ai-platform/generative_ai/gemini-1_5/text/sft_train_data.jsonl"
+            },
+            "tunedModelDisplayName": "gemini-2.5-flash-412043df-9870-4922-bc1d-544ee4b70b5c",
+            "updateTime": "2025-11-22T00:02:58.116228Z"
+          }
+        ]
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/v1beta1/projects/REDACTED/locations/us-central1/tuningJobs",
+        "request": "POST /v1beta1/projects/REDACTED/locations/us-central1/tuningJobs HTTP/1.1",
+        "headers": {
+          "Content-Length": "202",
+          "Content-Type": "application/json; charset=utf-8",
+          "Test-Name": "ListTuningsTest.ListTuningsVertexTest"
+        },
+        "bodySegments": [
+          {
+            "baseModel": "gemini-2.5-flash",
+            "supervisedTuningSpec": {
+              "hyperParameters": {
+                "epochCount": 1
+              },
+              "trainingDatasetUri": "gs://cloud-samples-data/ai-platform/generative_ai/gemini-1_5/text/sft_train_data.jsonl"
+            }
+          }
+        ],
+        "previousRequest": "71f90e1fcbf48a4ea00982fdc596ef6abbf6cc124e9b0b059c62e665004c4c31",
+        "serverAddress": "us-central1-aiplatform.googleapis.com",
+        "port": 443,
+        "protocol": "https"
+      },
+      "shaSum": "345578fc7f06a62b119fb1d17c452a60ef3cfeb4b431696481f8c1f303423bf3",
+      "response": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8",
+          "Date": "Sat, 22 Nov 2025 00:02:58 GMT",
+          "Server": "ESF",
+          "Vary": "Origin, X-Origin, Referer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "SAMEORIGIN",
+          "X-Xss-Protection": "0"
+        },
+        "bodySegments": [
+          {
+            "baseModel": "gemini-2.5-flash",
+            "createTime": "2025-11-22T00:02:58.515210Z",
+            "name": "projects/REDACTED/locations/us-central1/tuningJobs/7857905090533785600",
+            "state": "JOB_STATE_PENDING",
+            "supervisedTuningSpec": {
+              "hyperParameters": {
+                "epochCount": "1"
+              },
+              "trainingDatasetUri": "gs://cloud-samples-data/ai-platform/generative_ai/gemini-1_5/text/sft_train_data.jsonl"
+            },
+            "tunedModelDisplayName": "gemini-2.5-flash-8773c6a0-e8b5-40f2-b5e8-ae5660613a11",
+            "updateTime": "2025-11-22T00:02:58.515210Z"
+          }
+        ]
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/v1beta1/projects/REDACTED/locations/us-central1/tuningJobs",
+        "request": "GET /v1beta1/projects/REDACTED/locations/us-central1/tuningJobs HTTP/1.1",
+        "headers": {
+          "Test-Name": "ListTuningsTest.ListTuningsVertexTest"
+        },
+        "bodySegments": [
+          null
+        ],
+        "previousRequest": "345578fc7f06a62b119fb1d17c452a60ef3cfeb4b431696481f8c1f303423bf3",
+        "serverAddress": "us-central1-aiplatform.googleapis.com",
+        "port": 443,
+        "protocol": "https"
+      },
+      "shaSum": "b06bbefbda2e324df65c38481045660b7180f88b40ab501ec53988cf7b598362",
+      "response": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8",
+          "Date": "Sat, 22 Nov 2025 00:02:58 GMT",
+          "Server": "ESF",
+          "Vary": "Origin, X-Origin, Referer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "SAMEORIGIN",
+          "X-Xss-Protection": "0"
+        },
+        "bodySegments": [
+          {
+            "tuningJobs": [
+              {
+                "baseModel": "gemini-2.5-flash",
+                "createTime": "2025-11-22T00:02:58.515210Z",
+                "name": "projects/REDACTED/locations/us-central1/tuningJobs/7857905090533785600",
+                "state": "JOB_STATE_PENDING",
+                "supervisedTuningSpec": {
+                  "hyperParameters": {
+                    "epochCount": "1"
+                  },
+                  "trainingDatasetUri": "gs://cloud-samples-data/ai-platform/generative_ai/gemini-1_5/text/sft_train_data.jsonl"
+                },
+                "tunedModelDisplayName": "gemini-2.5-flash-8773c6a0-e8b5-40f2-b5e8-ae5660613a11",
+                "updateTime": "2025-11-22T00:02:58.515210Z"
+              },
+              {
+                "baseModel": "gemini-2.5-flash",
+                "createTime": "2025-11-22T00:02:58.116228Z",
+                "name": "projects/REDACTED/locations/us-central1/tuningJobs/7531394117549424640",
+                "state": "JOB_STATE_PENDING",
+                "supervisedTuningSpec": {
+                  "hyperParameters": {
+                    "epochCount": "1"
+                  },
+                  "trainingDatasetUri": "gs://cloud-samples-data/ai-platform/generative_ai/gemini-1_5/text/sft_train_data.jsonl"
+                },
+                "tunedModelDisplayName": "gemini-2.5-flash-412043df-9870-4922-bc1d-544ee4b70b5c",
+                "updateTime": "2025-11-22T00:02:58.116228Z"
+              },
+              {
+                "baseModel": "gemini-2.5-flash",
+                "createTime": "2025-11-22T00:02:56.033228Z",
+                "name": "projects/REDACTED/locations/us-central1/tuningJobs/1966070878026334208",
+                "state": "JOB_STATE_PENDING",
+                "supervisedTuningSpec": {
+                  "hyperParameters": {
+                    "epochCount": "1"
+                  },
+                  "trainingDatasetUri": "gs://cloud-samples-data/ai-platform/generative_ai/gemini-1_5/text/sft_train_data.jsonl"
+                },
+                "tunedModelDisplayName": "gemini-2.5-flash-02d3cc27-f8cd-430c-91d9-f0dbaa4675d7",
+                "updateTime": "2025-11-22T00:02:56.033228Z"
+              },
+              {
+                "baseModel": "gemini-2.5-flash",
+                "createTime": "2025-11-22T00:02:55.758789Z",
+                "name": "projects/REDACTED/locations/us-central1/tuningJobs/2919708099122036736",
+                "state": "JOB_STATE_PENDING",
+                "supervisedTuningSpec": {
+                  "hyperParameters": {
+                    "epochCount": "1"
+                  },
+                  "trainingDatasetUri": "gs://cloud-samples-data/ai-platform/generative_ai/gemini-1_5/text/sft_train_data.jsonl"
+                },
+                "tunedModelDisplayName": "gemini-2.5-flash-66651d07-cf50-4374-8e91-f4d7aabf3584",
+                "updateTime": "2025-11-22T00:02:55.758789Z"
+              },
+              {
+                "baseModel": "gemini-2.5-flash",
+                "createTime": "2025-11-22T00:02:25.119511Z",
+                "name": "projects/REDACTED/locations/us-central1/tuningJobs/118469130897588224",
+                "state": "JOB_STATE_PENDING",
+                "supervisedTuningSpec": {
+                  "hyperParameters": {
+                    "epochCount": "1"
+                  },
+                  "trainingDatasetUri": "gs://cloud-samples-data/ai-platform/generative_ai/gemini-1_5/text/sft_train_data.jsonl"
+                },
+                "tunedModelDisplayName": "gemini-2.5-flash-f4100899-1d1f-4bba-b705-2be893b6dcfd",
+                "updateTime": "2025-11-22T00:02:25.119511Z"
+              },
+              {
+                "baseModel": "gemini-2.5-flash",
+                "createTime": "2025-11-22T00:02:24.883552Z",
+                "name": "projects/REDACTED/locations/us-central1/tuningJobs/3685320035775021056",
+                "state": "JOB_STATE_PENDING",
+                "supervisedTuningSpec": {
+                  "hyperParameters": {
+                    "epochCount": "1"
+                  },
+                  "trainingDatasetUri": "gs://cloud-samples-data/ai-platform/generative_ai/gemini-1_5/text/sft_train_data.jsonl"
+                },
+                "tunedModelDisplayName": "gemini-2.5-flash-5ca5e843-5f3d-49ab-978d-c4768719fc69",
+                "updateTime": "2025-11-22T00:02:24.883552Z"
+              },
+              {
+                "baseModel": "gemini-2.5-flash",
+                "createTime": "2025-11-22T00:02:22.766189Z",
+                "name": "projects/REDACTED/locations/us-central1/tuningJobs/8465891040228802560",
+                "state": "JOB_STATE_PENDING",
+                "supervisedTuningSpec": {
+                  "hyperParameters": {
+                    "epochCount": "1"
+                  },
+                  "trainingDatasetUri": "gs://cloud-samples-data/ai-platform/generative_ai/gemini-1_5/text/sft_train_data.jsonl"
+                },
+                "tunedModelDisplayName": "gemini-2.5-flash-c548fe1a-72a9-4a46-bae2-f1d717dbde8d",
+                "updateTime": "2025-11-22T00:02:22.766189Z"
+              },
+              {
+                "baseModel": "gemini-2.5-flash",
+                "createTime": "2025-11-22T00:02:22.514582Z",
+                "name": "projects/REDACTED/locations/us-central1/tuningJobs/6215780076403818496",
+                "state": "JOB_STATE_PENDING",
+                "supervisedTuningSpec": {
+                  "hyperParameters": {
+                    "epochCount": "1"
+                  },
+                  "trainingDatasetUri": "gs://cloud-samples-data/ai-platform/generative_ai/gemini-1_5/text/sft_train_data.jsonl"
+                },
+                "tunedModelDisplayName": "gemini-2.5-flash-149b1016-97ee-434e-a9e3-40e9bfa2a491",
+                "updateTime": "2025-11-22T00:02:22.514582Z"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
