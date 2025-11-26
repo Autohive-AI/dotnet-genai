@@ -20,7 +20,7 @@ using System.Text.Json.Serialization;
 
 namespace Google.GenAI.Types {
   /// <summary>
-  /// Output only. The detailed state of the job. This enum is not supported in Gemini API.
+  /// Job state.
   /// </summary>
   [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum JobState {
@@ -76,8 +76,8 @@ namespace Google.GenAI.Types {
     [JsonPropertyName("JOB_STATE_EXPIRED")] JOB_STATE_EXPIRED,
 
     /// <summary>
-    /// The job is being updated. Only jobs in the `RUNNING` state can be updated. After updating,
-    /// the job goes back to the `RUNNING` state.
+    /// The job is being updated. Only jobs in the `JOB_STATE_RUNNING` state can be updated. After
+    /// updating, the job goes back to the `JOB_STATE_RUNNING` state.
     /// </summary>
     [JsonPropertyName("JOB_STATE_UPDATING")] JOB_STATE_UPDATING,
 

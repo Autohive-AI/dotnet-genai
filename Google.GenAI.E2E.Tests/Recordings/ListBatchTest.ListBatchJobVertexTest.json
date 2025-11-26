@@ -1,0 +1,393 @@
+{
+  "recordID": "ListBatchTest.ListBatchJobVertexTest",
+  "interactions": [
+    {
+      "request": {
+        "method": "POST",
+        "url": "/v1beta1/projects/REDACTED/locations/us-central1/batchPredictionJobs",
+        "request": "POST /v1beta1/projects/REDACTED/locations/us-central1/batchPredictionJobs HTTP/1.1",
+        "headers": {
+          "Content-Length": "351",
+          "Content-Type": "application/json; charset=utf-8",
+          "Test-Name": "ListBatchTest.ListBatchJobVertexTest"
+        },
+        "bodySegments": [
+          {
+            "displayName": "test_batch_gcs_list",
+            "inputConfig": {
+              "gcsSource": {
+                "uris": [
+                  "gs://unified-genai-tests/batches/input/generate_content_requests.jsonl"
+                ]
+              },
+              "instancesFormat": "jsonl"
+            },
+            "model": "publishers/google/models/gemini-2.5-flash",
+            "outputConfig": {
+              "gcsDestination": {
+                "outputUriPrefix": "gs://unified-genai-tests/batches/output"
+              },
+              "predictionsFormat": "jsonl"
+            }
+          }
+        ],
+        "previousRequest": "b4d6e60a9b97e7b98c63df9308728c5c88c0b40c398046772c63447b94608b4d",
+        "serverAddress": "us-central1-aiplatform.googleapis.com",
+        "port": 443,
+        "protocol": "https"
+      },
+      "shaSum": "c587122956e5e45d752b98d9afe267372505bfdadedf8a01b31e87630d1f4da0",
+      "response": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8",
+          "Date": "Sat, 22 Nov 2025 05:23:42 GMT",
+          "Server": "ESF",
+          "Vary": "Origin, X-Origin, Referer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "SAMEORIGIN",
+          "X-Xss-Protection": "0"
+        },
+        "bodySegments": [
+          {
+            "createTime": "2025-11-22T05:23:42.921380Z",
+            "displayName": "test_batch_gcs_list",
+            "encryptionSpec": {},
+            "inputConfig": {
+              "gcsSource": {
+                "uris": [
+                  "gs://unified-genai-tests/batches/input/generate_content_requests.jsonl"
+                ]
+              },
+              "instancesFormat": "jsonl"
+            },
+            "model": "publishers/google/models/gemini-2.5-flash",
+            "modelMonitoringStatus": {},
+            "modelVersionId": "1",
+            "name": "projects/REDACTED/locations/us-central1/batchPredictionJobs/54275244021514240",
+            "outputConfig": {
+              "gcsDestination": {
+                "outputUriPrefix": "gs://unified-genai-tests/batches/output"
+              },
+              "predictionsFormat": "jsonl"
+            },
+            "state": "JOB_STATE_PENDING",
+            "updateTime": "2025-11-22T05:23:42.921380Z"
+          }
+        ]
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/v1beta1/projects/REDACTED/locations/us-central1/batchPredictionJobs",
+        "request": "POST /v1beta1/projects/REDACTED/locations/us-central1/batchPredictionJobs HTTP/1.1",
+        "headers": {
+          "Content-Length": "351",
+          "Content-Type": "application/json; charset=utf-8",
+          "Test-Name": "ListBatchTest.ListBatchJobVertexTest"
+        },
+        "bodySegments": [
+          {
+            "displayName": "test_batch_gcs_list",
+            "inputConfig": {
+              "gcsSource": {
+                "uris": [
+                  "gs://unified-genai-tests/batches/input/generate_content_requests.jsonl"
+                ]
+              },
+              "instancesFormat": "jsonl"
+            },
+            "model": "publishers/google/models/gemini-2.5-flash",
+            "outputConfig": {
+              "gcsDestination": {
+                "outputUriPrefix": "gs://unified-genai-tests/batches/output"
+              },
+              "predictionsFormat": "jsonl"
+            }
+          }
+        ],
+        "previousRequest": "c587122956e5e45d752b98d9afe267372505bfdadedf8a01b31e87630d1f4da0",
+        "serverAddress": "us-central1-aiplatform.googleapis.com",
+        "port": 443,
+        "protocol": "https"
+      },
+      "shaSum": "140983e00cf3b61694edc2ed58174e9d5bc2f296eec2137c16406a0432d9db72",
+      "response": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8",
+          "Date": "Sat, 22 Nov 2025 05:23:43 GMT",
+          "Server": "ESF",
+          "Vary": "Origin, X-Origin, Referer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "SAMEORIGIN",
+          "X-Xss-Protection": "0"
+        },
+        "bodySegments": [
+          {
+            "createTime": "2025-11-22T05:23:43.130184Z",
+            "displayName": "test_batch_gcs_list",
+            "encryptionSpec": {},
+            "inputConfig": {
+              "gcsSource": {
+                "uris": [
+                  "gs://unified-genai-tests/batches/input/generate_content_requests.jsonl"
+                ]
+              },
+              "instancesFormat": "jsonl"
+            },
+            "model": "publishers/google/models/gemini-2.5-flash",
+            "modelMonitoringStatus": {},
+            "modelVersionId": "1",
+            "name": "projects/REDACTED/locations/us-central1/batchPredictionJobs/4301169692631891968",
+            "outputConfig": {
+              "gcsDestination": {
+                "outputUriPrefix": "gs://unified-genai-tests/batches/output"
+              },
+              "predictionsFormat": "jsonl"
+            },
+            "state": "JOB_STATE_PENDING",
+            "updateTime": "2025-11-22T05:23:43.130184Z"
+          }
+        ]
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/v1beta1/projects/REDACTED/locations/us-central1/batchPredictionJobs",
+        "request": "GET /v1beta1/projects/REDACTED/locations/us-central1/batchPredictionJobs HTTP/1.1",
+        "headers": {
+          "Test-Name": "ListBatchTest.ListBatchJobVertexTest"
+        },
+        "bodySegments": [
+          null
+        ],
+        "previousRequest": "140983e00cf3b61694edc2ed58174e9d5bc2f296eec2137c16406a0432d9db72",
+        "serverAddress": "us-central1-aiplatform.googleapis.com",
+        "port": 443,
+        "protocol": "https"
+      },
+      "shaSum": "e66c9d5a34f14093a8064939e878abaf1f0b1b7f6a159447bdcdaa8b8e3c6eb3",
+      "response": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8",
+          "Date": "Sat, 22 Nov 2025 05:23:43 GMT",
+          "Server": "ESF",
+          "Vary": "Origin, X-Origin, Referer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "SAMEORIGIN",
+          "X-Xss-Protection": "0"
+        },
+        "bodySegments": [
+          {
+            "batchPredictionJobs": [
+              {
+                "createTime": "2025-11-22T05:23:43.130184Z",
+                "displayName": "test_batch_gcs_list",
+                "encryptionSpec": {},
+                "inputConfig": {
+                  "gcsSource": {
+                    "uris": [
+                      "gs://unified-genai-tests/batches/input/generate_content_requests.jsonl"
+                    ]
+                  },
+                  "instancesFormat": "jsonl"
+                },
+                "model": "publishers/google/models/gemini-2.5-flash",
+                "modelMonitoringStatus": {},
+                "modelVersionId": "1",
+                "name": "projects/REDACTED/locations/us-central1/batchPredictionJobs/4301169692631891968",
+                "outputConfig": {
+                  "gcsDestination": {
+                    "outputUriPrefix": "gs://unified-genai-tests/batches/output"
+                  },
+                  "predictionsFormat": "jsonl"
+                },
+                "state": "JOB_STATE_PENDING",
+                "updateTime": "2025-11-22T05:23:43.130184Z"
+              },
+              {
+                "createTime": "2025-11-22T05:23:42.921380Z",
+                "displayName": "test_batch_gcs_list",
+                "encryptionSpec": {},
+                "inputConfig": {
+                  "gcsSource": {
+                    "uris": [
+                      "gs://unified-genai-tests/batches/input/generate_content_requests.jsonl"
+                    ]
+                  },
+                  "instancesFormat": "jsonl"
+                },
+                "model": "publishers/google/models/gemini-2.5-flash",
+                "modelMonitoringStatus": {},
+                "modelVersionId": "1",
+                "name": "projects/REDACTED/locations/us-central1/batchPredictionJobs/54275244021514240",
+                "outputConfig": {
+                  "gcsDestination": {
+                    "outputUriPrefix": "gs://unified-genai-tests/batches/output"
+                  },
+                  "predictionsFormat": "jsonl"
+                },
+                "state": "JOB_STATE_PENDING",
+                "updateTime": "2025-11-22T05:23:42.921380Z"
+              },
+              {
+                "createTime": "2025-11-22T05:23:40.165212Z",
+                "displayName": "test_batch_gcs_list",
+                "encryptionSpec": {},
+                "inputConfig": {
+                  "gcsSource": {
+                    "uris": [
+                      "gs://unified-genai-tests/batches/input/generate_content_requests.jsonl"
+                    ]
+                  },
+                  "instancesFormat": "jsonl"
+                },
+                "model": "publishers/google/models/gemini-2.5-flash",
+                "modelMonitoringStatus": {},
+                "modelVersionId": "1",
+                "name": "projects/REDACTED/locations/us-central1/batchPredictionJobs/7561353610383065088",
+                "outputConfig": {
+                  "gcsDestination": {
+                    "outputUriPrefix": "gs://unified-genai-tests/batches/output"
+                  },
+                  "predictionsFormat": "jsonl"
+                },
+                "state": "JOB_STATE_PENDING",
+                "updateTime": "2025-11-22T05:23:40.165212Z"
+              },
+              {
+                "createTime": "2025-11-22T05:23:39.908571Z",
+                "displayName": "test_batch_gcs_list",
+                "encryptionSpec": {},
+                "inputConfig": {
+                  "gcsSource": {
+                    "uris": [
+                      "gs://unified-genai-tests/batches/input/generate_content_requests.jsonl"
+                    ]
+                  },
+                  "instancesFormat": "jsonl"
+                },
+                "model": "publishers/google/models/gemini-2.5-flash",
+                "modelMonitoringStatus": {},
+                "modelVersionId": "1",
+                "name": "projects/REDACTED/locations/us-central1/batchPredictionJobs/63282443276255232",
+                "outputConfig": {
+                  "gcsDestination": {
+                    "outputUriPrefix": "gs://unified-genai-tests/batches/output"
+                  },
+                  "predictionsFormat": "jsonl"
+                },
+                "state": "JOB_STATE_PENDING",
+                "updateTime": "2025-11-22T05:23:39.908571Z"
+              },
+              {
+                "createTime": "2025-11-22T05:22:53.156104Z",
+                "displayName": "test_batch_gcs_list",
+                "encryptionSpec": {},
+                "inputConfig": {
+                  "gcsSource": {
+                    "uris": [
+                      "gs://unified-genai-tests/batches/input/generate_content_requests.jsonl"
+                    ]
+                  },
+                  "instancesFormat": "jsonl"
+                },
+                "model": "publishers/google/models/gemini-2.5-flash",
+                "modelMonitoringStatus": {},
+                "modelVersionId": "1",
+                "name": "projects/REDACTED/locations/us-central1/batchPredictionJobs/7786955804216655872",
+                "outputConfig": {
+                  "gcsDestination": {
+                    "outputUriPrefix": "gs://unified-genai-tests/batches/output"
+                  },
+                  "predictionsFormat": "jsonl"
+                },
+                "state": "JOB_STATE_PENDING",
+                "updateTime": "2025-11-22T05:22:53.156104Z"
+              },
+              {
+                "createTime": "2025-11-22T05:22:52.960297Z",
+                "displayName": "test_batch_gcs_list",
+                "encryptionSpec": {},
+                "inputConfig": {
+                  "gcsSource": {
+                    "uris": [
+                      "gs://unified-genai-tests/batches/input/generate_content_requests.jsonl"
+                    ]
+                  },
+                  "instancesFormat": "jsonl"
+                },
+                "model": "publishers/google/models/gemini-2.5-flash",
+                "modelMonitoringStatus": {},
+                "modelVersionId": "1",
+                "name": "projects/REDACTED/locations/us-central1/batchPredictionJobs/1832774884367794176",
+                "outputConfig": {
+                  "gcsDestination": {
+                    "outputUriPrefix": "gs://unified-genai-tests/batches/output"
+                  },
+                  "predictionsFormat": "jsonl"
+                },
+                "state": "JOB_STATE_PENDING",
+                "updateTime": "2025-11-22T05:22:52.960297Z"
+              },
+              {
+                "createTime": "2025-11-22T05:22:50.118131Z",
+                "displayName": "test_batch_gcs_list",
+                "encryptionSpec": {},
+                "inputConfig": {
+                  "gcsSource": {
+                    "uris": [
+                      "gs://unified-genai-tests/batches/input/generate_content_requests.jsonl"
+                    ]
+                  },
+                  "instancesFormat": "jsonl"
+                },
+                "model": "publishers/google/models/gemini-2.5-flash",
+                "modelMonitoringStatus": {},
+                "modelVersionId": "1",
+                "name": "projects/REDACTED/locations/us-central1/batchPredictionJobs/6251228331283316736",
+                "outputConfig": {
+                  "gcsDestination": {
+                    "outputUriPrefix": "gs://unified-genai-tests/batches/output"
+                  },
+                  "predictionsFormat": "jsonl"
+                },
+                "state": "JOB_STATE_PENDING",
+                "updateTime": "2025-11-22T05:22:50.118131Z"
+              },
+              {
+                "createTime": "2025-11-22T05:22:49.878700Z",
+                "displayName": "test_batch_gcs_list",
+                "encryptionSpec": {},
+                "inputConfig": {
+                  "gcsSource": {
+                    "uris": [
+                      "gs://unified-genai-tests/batches/input/generate_content_requests.jsonl"
+                    ]
+                  },
+                  "instancesFormat": "jsonl"
+                },
+                "model": "publishers/google/models/gemini-2.5-flash",
+                "modelMonitoringStatus": {},
+                "modelVersionId": "1",
+                "name": "projects/REDACTED/locations/us-central1/batchPredictionJobs/5710796375998857216",
+                "outputConfig": {
+                  "gcsDestination": {
+                    "outputUriPrefix": "gs://unified-genai-tests/batches/output"
+                  },
+                  "predictionsFormat": "jsonl"
+                },
+                "state": "JOB_STATE_PENDING",
+                "updateTime": "2025-11-22T05:22:49.878700Z"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

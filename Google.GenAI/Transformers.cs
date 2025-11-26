@@ -16,6 +16,7 @@
 
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Text.RegularExpressions;
 
 using Google.GenAI.Types;
 
@@ -499,7 +500,7 @@ namespace Google.GenAI
     }
 
     /// <summary>Formats a resource name given the resource name and resource prefix.</summary>
-    private static string GetResourceName(
+    internal static string GetResourceName(
         ApiClient apiClient, string resourceName, string resourcePrefix)
     {
       if (apiClient.VertexAI)
@@ -557,19 +558,72 @@ namespace Google.GenAI
 
     internal static JsonNode TBatchJobName(ApiClient apiClient, JsonNode origin)
     {
-      // TODO(b/413510963): Complete this converter, currently a placeholder.
-      return origin;
+      string nameStr = origin.ToString().Replace("\"", "");
+      if (!apiClient.VertexAI)
+      {
+        Regex mldevRegex = new Regex(@"batches/[^/]+$");
+        if (mldevRegex.IsMatch(nameStr))
+        {
+          return JsonValue.Create(nameStr.Split('/').Last());
+        }
+        else
+        {
+          throw new ArgumentException($"Invalid batch job name: {nameStr}.");
+        }
+      }
+
+      Regex vertexRegex = new Regex(@"^projects/[^/]+/locations/[^/]+/batchPredictionJobs/[^/]+$");
+      nameStr = GetResourceName(apiClient, nameStr, "batchPredictionJobs");
+      if (vertexRegex.IsMatch(nameStr))
+      {
+        return JsonValue.Create(nameStr.Split('/').Last());
+      }
+      else if (nameStr.All(char.IsDigit))
+      {
+        return JsonValue.Create(nameStr);
+      }
+      else
+      {
+        throw new ArgumentException($"Invalid batch job name: {nameStr}.");
+      }
     }
 
     internal static JsonNode TBatchJobSource(JsonNode origin)
     {
-      // TODO(b/413510963): Complete this converter, currently a placeholder.
       return origin;
     }
 
     internal static JsonNode TBatchJobDestination(JsonNode origin)
     {
-      // TODO(b/413510963): Complete this converter, currently a placeholder.
+      return origin;
+    }
+
+    internal static JsonNode TJobState(JsonNode origin)
+    {
+        string? stateStr = origin.GetValue<string>();
+        switch (stateStr)
+        {
+            case "BATCH_STATE_UNSPECIFIED":
+                return JsonValue.Create("JOB_STATE_UNSPECIFIED");
+            case "BATCH_STATE_PENDING":
+                return JsonValue.Create("JOB_STATE_PENDING");
+            case "BATCH_STATE_RUNNING":
+                return JsonValue.Create("JOB_STATE_RUNNING");
+            case "BATCH_STATE_SUCCEEDED":
+                return JsonValue.Create("JOB_STATE_SUCCEEDED");
+            case "BATCH_STATE_FAILED":
+                return JsonValue.Create("JOB_STATE_FAILED");
+            case "BATCH_STATE_CANCELLED":
+                return JsonValue.Create("JOB_STATE_CANCELLED");
+            case "BATCH_STATE_EXPIRED":
+                return JsonValue.Create("JOB_STATE_EXPIRED");
+            default:
+                return origin;
+        }
+    }
+
+    internal static JsonNode TRecvBatchJobDestination(JsonNode origin)
+    {
       return origin;
     }
 

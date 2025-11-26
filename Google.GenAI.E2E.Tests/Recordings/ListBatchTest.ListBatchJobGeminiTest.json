@@ -1,0 +1,174 @@
+{
+  "recordID": "ListBatchTest.ListBatchJobGeminiTest",
+  "interactions": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/v1beta/batches",
+        "request": "GET /v1beta/batches HTTP/1.1",
+        "headers": {
+          "Test-Name": "ListBatchTest.ListBatchJobGeminiTest"
+        },
+        "bodySegments": [
+          null
+        ],
+        "previousRequest": "b4d6e60a9b97e7b98c63df9308728c5c88c0b40c398046772c63447b94608b4d",
+        "serverAddress": "generativelanguage.googleapis.com",
+        "port": 443,
+        "protocol": "https"
+      },
+      "shaSum": "856ec207f7b10e72e34919a29fe64e73f01265c499e5987ffdbcbced25e2b2d4",
+      "response": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8",
+          "Date": "Sat, 22 Nov 2025 05:23:43 GMT",
+          "Server": "scaffolding on HTTPServer2",
+          "Server-Timing": "gfet4t7; dur=154",
+          "Vary": "Origin, X-Origin, Referer",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "SAMEORIGIN",
+          "X-Xss-Protection": "0"
+        },
+        "bodySegments": [
+          {
+            "nextPageToken": "cjgKDoIBCwiUjIXJBhD6wvUHCiZCJHFnNGV2MTI5cWFvcTc5M2I0dmJnMng0a2N6NjRvNTlkbWpndQ",
+            "operations": [
+              {
+                "done": true,
+                "metadata": {
+                  "@type": "type.googleapis.com/google.ai.generativelanguage.v1main.GenerateContentBatch",
+                  "batchStats": {
+                    "requestCount": "1720",
+                    "successfulRequestCount": "1720"
+                  },
+                  "createTime": "2025-11-22T05:19:04.716699204Z",
+                  "displayName": "test_batch_file_get",
+                  "endTime": "2025-11-22T05:23:42.860857437Z",
+                  "inputConfig": {
+                    "fileName": "files/oi5wupwi0y7e"
+                  },
+                  "model": "models/gemini-2.5-flash",
+                  "name": "batches/zywfstu5w17d4mv2uchir5rw0xlazy3ts9rt",
+                  "output": {
+                    "responsesFile": "files/batch-zywfstu5w17d4mv2uchir5rw0xlazy3ts9rt"
+                  },
+                  "state": "BATCH_STATE_SUCCEEDED",
+                  "updateTime": "2025-11-22T05:23:42.860857399Z"
+                },
+                "name": "batches/zywfstu5w17d4mv2uchir5rw0xlazy3ts9rt",
+                "response": {
+                  "@type": "type.googleapis.com/google.ai.generativelanguage.v1main.GenerateContentBatchOutput",
+                  "responsesFile": "files/batch-zywfstu5w17d4mv2uchir5rw0xlazy3ts9rt"
+                }
+              },
+              {
+                "done": true,
+                "metadata": {
+                  "@type": "type.googleapis.com/google.ai.generativelanguage.v1main.GenerateContentBatch",
+                  "batchStats": {
+                    "requestCount": "1720",
+                    "successfulRequestCount": "1720"
+                  },
+                  "createTime": "2025-11-22T05:19:01.447017971Z",
+                  "displayName": "test_batch_file_get",
+                  "endTime": "2025-11-22T05:23:42.279536873Z",
+                  "inputConfig": {
+                    "fileName": "files/oi5wupwi0y7e"
+                  },
+                  "model": "models/gemini-2.5-flash",
+                  "name": "batches/x0pg8s3g8ovyk4thg19mbmf4g150qt0aws3t",
+                  "output": {
+                    "responsesFile": "files/batch-x0pg8s3g8ovyk4thg19mbmf4g150qt0aws3t"
+                  },
+                  "state": "BATCH_STATE_SUCCEEDED",
+                  "updateTime": "2025-11-22T05:23:42.279536842Z"
+                },
+                "name": "batches/x0pg8s3g8ovyk4thg19mbmf4g150qt0aws3t",
+                "response": {
+                  "@type": "type.googleapis.com/google.ai.generativelanguage.v1main.GenerateContentBatchOutput",
+                  "responsesFile": "files/batch-x0pg8s3g8ovyk4thg19mbmf4g150qt0aws3t"
+                }
+              },
+              {
+                "done": true,
+                "error": {
+                  "code": 13,
+                  "message": "Batch s62zzzursn7ykfc8d2zto41pc6928h65188n failed without error."
+                },
+                "metadata": {
+                  "@type": "type.googleapis.com/google.ai.generativelanguage.v1main.GenerateContentBatch",
+                  "batchStats": {
+                    "pendingRequestCount": "1720",
+                    "requestCount": "1720"
+                  },
+                  "createTime": "2025-11-22T05:12:21.388752016Z",
+                  "displayName": "test_batch_file_cancel",
+                  "endTime": "2025-11-22T05:12:22.024917Z",
+                  "inputConfig": {
+                    "fileName": "files/oi5wupwi0y7e"
+                  },
+                  "model": "models/gemini-2.5-flash",
+                  "name": "batches/s62zzzursn7ykfc8d2zto41pc6928h65188n",
+                  "state": "BATCH_STATE_CANCELLED",
+                  "updateTime": "2025-11-22T05:12:22.024917Z"
+                },
+                "name": "batches/s62zzzursn7ykfc8d2zto41pc6928h65188n"
+              },
+              {
+                "done": true,
+                "error": {
+                  "code": 13,
+                  "message": "Batch 8877bmz433h4g36i7f5lbzos1ky4sirjzhod failed without error."
+                },
+                "metadata": {
+                  "@type": "type.googleapis.com/google.ai.generativelanguage.v1main.GenerateContentBatch",
+                  "batchStats": {
+                    "pendingRequestCount": "1720",
+                    "requestCount": "1720"
+                  },
+                  "createTime": "2025-11-22T05:12:17.673645462Z",
+                  "displayName": "test_batch_file_cancel",
+                  "endTime": "2025-11-22T05:12:18.308160Z",
+                  "inputConfig": {
+                    "fileName": "files/oi5wupwi0y7e"
+                  },
+                  "model": "models/gemini-2.5-flash",
+                  "name": "batches/8877bmz433h4g36i7f5lbzos1ky4sirjzhod",
+                  "state": "BATCH_STATE_CANCELLED",
+                  "updateTime": "2025-11-22T05:12:18.308160Z"
+                },
+                "name": "batches/8877bmz433h4g36i7f5lbzos1ky4sirjzhod"
+              },
+              {
+                "done": true,
+                "error": {
+                  "code": 13,
+                  "message": "Batch qg4ev129qaoq793b4vbg2x4kcz64o59dmjgu failed without error."
+                },
+                "metadata": {
+                  "@type": "type.googleapis.com/google.ai.generativelanguage.v1main.GenerateContentBatch",
+                  "batchStats": {
+                    "pendingRequestCount": "1720",
+                    "requestCount": "1720"
+                  },
+                  "createTime": "2025-11-22T05:11:48.016605562Z",
+                  "displayName": "test_batch_file_cancel",
+                  "endTime": "2025-11-22T05:11:48.716389Z",
+                  "inputConfig": {
+                    "fileName": "files/oi5wupwi0y7e"
+                  },
+                  "model": "models/gemini-2.5-flash",
+                  "name": "batches/qg4ev129qaoq793b4vbg2x4kcz64o59dmjgu",
+                  "state": "BATCH_STATE_CANCELLED",
+                  "updateTime": "2025-11-22T05:11:48.716389Z"
+                },
+                "name": "batches/qg4ev129qaoq793b4vbg2x4kcz64o59dmjgu"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

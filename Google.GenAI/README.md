@@ -526,6 +526,302 @@ public class DeleteModelExample {
 }
 ```
 
+## Batches
+The `client.Batches` module can be used to manage batch jobs.
+See `Create a client` section above to initialize a client.
+
+### Create Batch Job
+Batch jobs can be created from GCS URIs or BigQuery URIs when using Vertex AI, or from Files or Inlined Requests when using the Gemini API.
+
+#### With GCS URI (Vertex AI only)
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Google.GenAI;
+using Google.GenAI.Types;
+
+public class CreateBatchWithGcs {
+    public static async Task main()
+    {
+        // assuming credentials are set up for Vertex AI in environment variables as instructed above.
+        var client = new Client();
+        var src = new BatchJobSource
+        {
+            GcsUri = new List<string> { "gs://unified-genai-tests/batches/input/generate_content_requests.jsonl" },
+            Format = "jsonl"
+        };
+        var config = new CreateBatchJobConfig
+        {
+            DisplayName = "test_batch_gcs",
+            Dest = new BatchJobDestination
+            {
+                GcsUri = "gs://unified-genai-tests/batches/output",
+                Format = "jsonl"
+            }
+        };
+        var response = await client.Batches.CreateAsync("gemini-2.5-flash", src, config);
+        Console.WriteLine($"Created Vertex AI batch job: {response.Name}");
+    }
+}
+```
+
+#### With BigQuery URI (Vertex AI only)
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Google.GenAI;
+using Google.GenAI.Types;
+
+public class CreateBatchWithBigQuery {
+    public static async Task main()
+    {
+        // assuming credentials are set up for Vertex AI in environment variables as instructed above.
+        var client = new Client();
+        var src = new BatchJobSource
+        {
+            BigqueryUri = "bq://storage-samples.generative_ai.batch_requests_for_multimodal_input",
+            Format = "bigquery"
+        };
+        var config = new CreateBatchJobConfig
+        {
+            DisplayName = "test_batch_bigquery",
+            Dest = new BatchJobDestination
+            {
+                BigqueryUri = "bq://REDACTED.unified_genai_tests_batches.generate_content_output",
+                Format = "bigquery"
+            }
+        };
+        var response = await client.Batches.CreateAsync("gemini-2.5-flash", src, config);
+        Console.WriteLine($"Created Vertex AI batch job: {response.Name}");
+    }
+}
+```
+
+#### With Inlined Requests (Gemini API only)
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Google.GenAI;
+using Google.GenAI.Types;
+
+public class CreateBatchWithInlinedRequests {
+    public static async Task main()
+    {
+        // assuming credentials are set up for Gemini API in environment variables as instructed above.
+        var client = new Client();
+        var safetySettings = new List<SafetySetting>
+        {
+            new SafetySetting { Category = HarmCategory.HARM_CATEGORY_HATE_SPEECH, Threshold = HarmBlockThreshold.BLOCK_ONLY_HIGH }
+        };
+        var inlineRequest = new InlinedRequest
+        {
+            Contents = new List<Content>
+            {
+                new Content
+                {
+                    Parts = new List<Part> { new Part { Text = "Hello!" } },
+                    Role = "user"
+                }
+            },
+            Metadata = new Dictionary<string, string> { { "key", "request-1" } },
+            Config = new GenerateContentConfig
+            {
+                SafetySettings = safetySettings
+            }
+        };
+        var src = new BatchJobSource
+        {
+            InlinedRequests = new List<InlinedRequest> { inlineRequest }
+        };
+        var config = new CreateBatchJobConfig
+        {
+            DisplayName = "test_batch_inlined"
+        };
+        var response = await client.Batches.CreateAsync("gemini-2.5-flash", src, config);
+        Console.WriteLine($"Created Gemini API batch job: {response.Name}");
+    }
+}
+```
+
+#### With File Name (Gemini API only)
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Google.GenAI;
+using Google.GenAI.Types;
+
+public class CreateBatchWithFile {
+    public static async Task main()
+    {
+        // assuming credentials are set up for Gemini API in environment variables as instructed above.
+        var client = new Client();
+        var src = new BatchJobSource
+        {
+            FileName = "files/your-file-id"
+        };
+        var config = new CreateBatchJobConfig
+        {
+            DisplayName = "test_batch_file"
+        };
+        var response = await client.Batches.CreateAsync("gemini-2.5-flash", src, config);
+        Console.WriteLine($"Created Gemini API batch job: {response.Name}");
+    }
+}
+```
+
+### Create Embedding Batch Job
+Embedding batch jobs are only supported in Gemini API, from Files or Inlined Requests.
+
+#### With Inlined Requests (Gemini API only)
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Google.GenAI;
+using Google.GenAI.Types;
+
+public class CreateEmbeddingBatchWithInlinedRequests {
+    public static async Task main()
+    {
+        // assuming credentials are set up for Gemini API in environment variables as instructed above.
+        var client = new Client();
+        var src = new EmbeddingsBatchJobSource
+        {
+            InlinedRequests = new EmbedContentBatch
+            {
+                Config = new EmbedContentConfig { OutputDimensionality = 64 },
+                Contents = new List<Content>
+                {
+                    new Content { Parts = new List<Part> { new Part { Text = "1" } } },
+                    new Content { Parts = new List<Part> { new Part { Text = "2" } } },
+                    new Content { Parts = new List<Part> { new Part { Text = "3" } } },
+                }
+            }
+        };
+        var config = new CreateEmbeddingsBatchJobConfig
+        {
+            DisplayName = "test_batch_embedding_inlined"
+        };
+        var response = await client.Batches.CreateEmbeddingsAsync("gemini-embedding-001", src, config);
+        Console.WriteLine($"Created Gemini API embedding batch job: {response.Name}");
+    }
+}
+```
+
+#### With File Name (Gemini API only)
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Google.GenAI;
+using Google.GenAI.Types;
+
+public class CreateEmbeddingBatchWithFile {
+    public static async Task main()
+    {
+        // assuming credentials are set up for Gemini API in environment variables as instructed above.
+        var client = new Client();
+        var src = new EmbeddingsBatchJobSource
+        {
+            FileName = "files/your-file-id",
+        };
+        var config = new CreateEmbeddingsBatchJobConfig
+        {
+            DisplayName = "test_batch_embedding_file"
+        };
+        var response = await client.Batches.CreateEmbeddingsAsync("gemini-embedding-001", src, config);
+        Console.WriteLine($"Created Gemini API embedding batch job: {response.Name}");
+    }
+}
+```
+
+### Get Batch Job
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Google.GenAI;
+using Google.GenAI.Types;
+
+public class GetBatchJob {
+    public static async Task main()
+    {
+        // assuming credentials are set up in environment variables as instructed above.
+        var client = new Client();
+        // Use a batch job name from a previously created batch job.
+        var batchJob = await client.Batches.GetAsync(name: "batches/your-batch-job-name");
+        Console.WriteLine($"Batch job name: {batchJob.Name}, State: {batchJob.State}");
+    }
+}
+```
+
+### Cancel Batch Job
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Google.GenAI;
+using Google.GenAI.Types;
+
+public class CancelBatchJob {
+    public static async Task main()
+    {
+        // assuming credentials are set up in environment variables as instructed above.
+        var client = new Client();
+        // Use a batch job name from a previously created batch job.
+        await client.Batches.CancelAsync(name: "batches/your-batch-job-name");
+        Console.WriteLine("Batch job cancelled.");
+    }
+}
+```
+
+### List Batch Jobs
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Google.GenAI;
+using Google.GenAI.Types;
+
+public class ListBatchJobs {
+    public static async Task main()
+    {
+        // assuming credentials are set up in environment variables as instructed above.
+        var client = new Client();
+        var pager = await client.Batches.ListAsync(new ListBatchJobsConfig { PageSize = 10 });
+
+        await foreach(var job in pager)
+        {
+            Console.WriteLine($"Batch job name: {job.Name}, State: {job.State}");
+        }
+    }
+}
+```
+
+### Delete Batch Job
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Google.GenAI;
+using Google.GenAI.Types;
+
+public class DeleteBatchJob {
+    public static async Task main()
+    {
+        // assuming credentials are set up in environment variables as instructed above.
+        var client = new Client();
+        // Use a batch job name from a previously created batch job.
+        await client.Batches.DeleteAsync(name: "batches/your-batch-job-name");
+        Console.WriteLine("Batch job deleted.");
+    }
+}
+```
+
 ## Caches
 The `client.Caches` module can be used to manage cached content.
 See `Create a client` section above to initialize a client.
