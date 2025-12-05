@@ -553,6 +553,46 @@ namespace Google.GenAI {
       await DownloadToFileAsync(file.Name, outputPath, config);
     }
 
+    /// <summary>
+    /// Downloads a <see cref="Google.GenAI.Types.GeneratedVideo"/> object directly to a file path.
+    /// </summary>
+    /// <param name="file">The <see cref="GeneratedVideo"/> object to download.</param>
+    /// <param name="outputPath">The path where the Video should be saved.</param>
+    /// <param name="config">A <see cref="DownloadFileConfig"/> instance that specifies the optional
+    /// configurations.</param> <returns>A <see cref="Task"/> that represents the asynchronous
+    /// operation.</returns>
+    public async Task DownloadToFileAsync(Google.GenAI.Types.GeneratedVideo generatedVideo,
+                                          string outputPath, DownloadFileConfig? config = null) {
+      if (this._apiClient.VertexAI) {
+        throw new NotSupportedException(
+            "This method is only supported in the Gemini Developer API client.");
+      }
+      if (generatedVideo.Video == null)
+        throw new ArgumentException("Google.GenAI.Types.Video is empty", nameof(generatedVideo));
+
+      await DownloadToFileAsync(generatedVideo.Video, outputPath, config);
+    }
+
+    /// <summary>
+    /// Downloads a <see cref="Google.GenAI.Types.Video"/> object directly to a file path.
+    /// </summary>
+    /// <param name="file">The <see cref="Video"/> object to download.</param>
+    /// <param name="outputPath">The path where the Video should be saved.</param>
+    /// <param name="config">A <see cref="DownloadFileConfig"/> instance that specifies the optional
+    /// configurations.</param> <returns>A <see cref="Task"/> that represents the asynchronous
+    /// operation.</returns>
+    public async Task DownloadToFileAsync(Google.GenAI.Types.Video video, string outputPath,
+                                          DownloadFileConfig? config = null) {
+      if (this._apiClient.VertexAI) {
+        throw new NotSupportedException(
+            "This method is only supported in the Gemini Developer API client.");
+      }
+      if (string.IsNullOrEmpty(video.Uri))
+        throw new ArgumentException("Google.GenAI.Types.Video.Uri is required", nameof(video));
+
+      await DownloadToFileAsync(video.Uri, outputPath, config);
+    }
+
     private async Task<Google.GenAI.Types.File> FileFromUploadResponseBodyAsync(
         HttpContent responseContent) {
       string responseString = await responseContent.ReadAsStringAsync();
