@@ -68,17 +68,6 @@ namespace Google.GenAI.Types {
           }
 
     /// <summary>
-    /// Optional. Tool that allows grounding the model's response with geospatial context related to
-    /// the user's query.
-    /// </summary>
-    [JsonPropertyName("googleMaps")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public GoogleMaps
-        ? GoogleMaps {
-            get; set;
-          }
-
-    /// <summary>
     /// Optional. CodeExecution tool type. Enables the model to execute code as part of generation.
     /// </summary>
     [JsonPropertyName("codeExecution")]
@@ -96,6 +85,16 @@ namespace Google.GenAI.Types {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public EnterpriseWebSearch
         ? EnterpriseWebSearch {
+            get; set;
+          }
+
+    /// <summary>
+    /// Optional. GoogleMaps tool type. Tool to support Google Maps in Model.
+    /// </summary>
+    [JsonPropertyName("googleMaps")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public GoogleMaps
+        ? GoogleMaps {
             get; set;
           }
 

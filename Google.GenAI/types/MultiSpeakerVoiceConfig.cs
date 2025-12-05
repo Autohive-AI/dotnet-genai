@@ -23,13 +23,12 @@ using Google.GenAI.Serialization;
 
 namespace Google.GenAI.Types {
   /// <summary>
-  /// Configuration for a multi-speaker text-to-speech request.
+  /// The configuration for the multi-speaker setup. This data type is not supported in Vertex AI.
   /// </summary>
 
   public record MultiSpeakerVoiceConfig {
     /// <summary>
-    /// A list of configurations for the voices of the speakers. Exactly two speaker voice
-    /// configurations must be provided.
+    /// All the enabled speaker voices.
     /// </summary>
     [JsonPropertyName("speakerVoiceConfigs")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
