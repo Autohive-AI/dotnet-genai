@@ -3443,14 +3443,14 @@ namespace Google.GenAI {
     internal JsonNode SpeechConfigToVertex(JsonNode fromObject, JsonObject parentObject) {
       JsonObject toObject = new JsonObject();
 
-      if (Common.GetValueByPath(fromObject, new string[] { "languageCode" }) != null) {
-        Common.SetValueByPath(toObject, new string[] { "languageCode" },
-                              Common.GetValueByPath(fromObject, new string[] { "languageCode" }));
-      }
-
       if (Common.GetValueByPath(fromObject, new string[] { "voiceConfig" }) != null) {
         Common.SetValueByPath(toObject, new string[] { "voiceConfig" },
                               Common.GetValueByPath(fromObject, new string[] { "voiceConfig" }));
+      }
+
+      if (Common.GetValueByPath(fromObject, new string[] { "languageCode" }) != null) {
+        Common.SetValueByPath(toObject, new string[] { "languageCode" },
+                              Common.GetValueByPath(fromObject, new string[] { "languageCode" }));
       }
 
       if (!Common.IsZero(
