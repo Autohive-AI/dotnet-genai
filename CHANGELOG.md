@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 0.8.0, released 2025-12-08
+
+
+### New features
+
+* Add DownloadAsync overloaded methods for Video and GeneratedVideo ([fb1cb85](https://github.com/googleapis/dotnet-genai/commit/fb1cb85dd0531f7f0c7aad00b578b6e3224e8cbe))
+* Add DownloadToFileAsync overloaded methods for Video and GeneratedVideo ([3e57601](https://github.com/googleapis/dotnet-genai/commit/3e5760186ff06e2ae250b8cdda7ad238ed81d1f7))
+* Support ReplicatedVoiceConfig ([66e7cd4](https://github.com/googleapis/dotnet-genai/commit/66e7cd4524a7a3927af649c6fb4e825380a47201))
+
 ## Version 0.7.0, released 2025-12-04
 
 
