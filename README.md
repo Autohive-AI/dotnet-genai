@@ -259,6 +259,65 @@ class GenerateContentStreamSimpleText {
 
 ```
 
+### Cancellation Support
+
+All `GenerateContentAsync` and `GenerateContentStreamAsync` methods support `CancellationToken` for cancelling requests.
+
+#### Cancel a request with timeout
+
+```csharp
+using System.Threading;
+using System.Threading.Tasks;
+using Google.GenAI;
+
+class CancelWithTimeout {
+  public static async Task main() {
+    var client = new Client();
+    
+    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+    
+    try {
+      var response = await client.Models.GenerateContentAsync(
+          model: "gemini-2.0-flash",
+          contents: "Write a very long essay",
+          cancellationToken: cts.Token
+      );
+      Console.WriteLine(response.Candidates[0].Content.Parts[0].Text);
+    } catch (OperationCanceledException) {
+      Console.WriteLine("Request timed out");
+    }
+  }
+}
+```
+
+#### Cancel streaming with timeout
+
+```csharp
+using System.Threading;
+using System.Threading.Tasks;
+using Google.GenAI;
+
+class CancelStreaming {
+  public static async Task main() {
+    var client = new Client();
+    
+    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+    
+    try {
+      await foreach (var chunk in client.Models.GenerateContentStreamAsync(
+          model: "gemini-2.0-flash",
+          contents: "Tell me a long story",
+          cancellationToken: cts.Token
+      )) {
+        Console.Write(chunk.Candidates[0].Content.Parts[0].Text);
+      }
+    } catch (OperationCanceledException) {
+      Console.WriteLine("\nRequest timed out");
+    }
+  }
+}
+```
+
 ### Generate Images
 
 ```csharp

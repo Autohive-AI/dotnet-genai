@@ -17,9 +17,11 @@
 // Auto-generated code. Do not edit.
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using System.Threading;
 
 using Google.GenAI.Types;
 
@@ -4002,7 +4004,8 @@ namespace Google.GenAI {
     }
 
     private async Task<GenerateContentResponse> PrivateGenerateContentAsync(
-        string model, List<Content> contents, GenerateContentConfig? config) {
+        string model, List<Content> contents, GenerateContentConfig? config,
+        CancellationToken cancellationToken = default) {
       GenerateContentParameters parameter = new GenerateContentParameters();
 
       if (!Common.IsZero(model)) {
@@ -4040,9 +4043,13 @@ namespace Google.GenAI {
       HttpOptions? requestHttpOptions = config?.HttpOptions;
 
       ApiResponse response = await this._apiClient.RequestAsync(
-          HttpMethod.Post, path, JsonSerializer.Serialize(body), requestHttpOptions);
+          HttpMethod.Post, path, JsonSerializer.Serialize(body), requestHttpOptions, cancellationToken);
       HttpContent httpContent = response.GetEntity();
+#if NETSTANDARD2_1
       string contentString = await httpContent.ReadAsStringAsync();
+#else
+      string contentString = await httpContent.ReadAsStringAsync(cancellationToken);
+#endif
       JsonNode? httpContentNode = JsonNode.Parse(contentString);
       if (httpContentNode == null) {
         throw new NotSupportedException("Failed to parse response to JsonNode.");
@@ -4063,7 +4070,8 @@ namespace Google.GenAI {
     }
 
     private async IAsyncEnumerable<GenerateContentResponse> PrivateGenerateContentStreamAsync(
-        string model, List<Content> contents, GenerateContentConfig? config) {
+        string model, List<Content> contents, GenerateContentConfig? config,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default) {
       GenerateContentParameters parameter = new GenerateContentParameters();
 
       if (!Common.IsZero(model)) {
@@ -4102,7 +4110,7 @@ namespace Google.GenAI {
 
       await foreach (ApiResponse apiResponse in this._apiClient.RequestStreamAsync(
                          HttpMethod.Post, path, JsonSerializer.Serialize(body),
-                         requestHttpOptions)) {
+                         requestHttpOptions, cancellationToken)) {
         string chunkJson = await apiResponse.GetEntity().ReadAsStringAsync();
         JsonNode? chunkNode = JsonNode.Parse(chunkJson);
         if (chunkNode == null)
@@ -4958,13 +4966,15 @@ namespace Google.GenAI {
     /// <param name="model">The name of the GenAI model to use for generation.</param>
     /// <param name="contents">A <see cref="List{Content}"/> to send to the generative
     /// model.</param> <param name="config">A <see cref="GenerateContentConfig"/> instance that
-    /// specifies the optional configurations.</param> <returns>A <see
-    /// cref="Task{GenerateContentResponse}"/> that represents the asynchronous operation. The task
+    /// specifies the optional configurations.</param>
+    /// <param name="cancellationToken">A <see cref="CancellationToken"/> to cancel the operation.</param>
+    /// <returns>A <see cref="Task{GenerateContentResponse}"/> that represents the asynchronous operation. The task
     /// result contains a <see cref="GenerateContentResponse"/> instance with response contents and
     /// other metadata.</returns>
     public async Task<GenerateContentResponse> GenerateContentAsync(
-        string model, List<Content> contents, GenerateContentConfig? config = null) {
-      return await PrivateGenerateContentAsync(model, contents, config);
+        string model, List<Content> contents, GenerateContentConfig? config = null,
+        CancellationToken cancellationToken = default) {
+      return await PrivateGenerateContentAsync(model, contents, config, cancellationToken);
     }
 
     /// <summary>
@@ -4973,14 +4983,16 @@ namespace Google.GenAI {
     /// <param name="model">The name of the GenAI model to use for generation.</param>
     /// <param name="contents">A <see cref="Content"/> instance to send to the generative
     /// model.</param> <param name="config">A <see cref="GenerateContentConfig"/> instance that
-    /// specifies the optional configurations.</param> <returns>A <see
-    /// cref="Task{GenerateContentResponse}"/> that represents the asynchronous operation. The task
+    /// specifies the optional configurations.</param>
+    /// <param name="cancellationToken">A <see cref="CancellationToken"/> to cancel the operation.</param>
+    /// <returns>A <see cref="Task{GenerateContentResponse}"/> that represents the asynchronous operation. The task
     /// result contains a <see cref="GenerateContentResponse"/> instance with response contents and
     /// other metadata.</returns>
     public async Task<GenerateContentResponse> GenerateContentAsync(
-        string model, Content contents, GenerateContentConfig? config = null) {
+        string model, Content contents, GenerateContentConfig? config = null,
+        CancellationToken cancellationToken = default) {
       List<Content> contentList = Transformers.TContents(contents) ?? new List<Content>();
-      return await GenerateContentAsync(model, contentList, config);
+      return await GenerateContentAsync(model, contentList, config, cancellationToken);
     }
 
     /// <summary>
@@ -4989,14 +5001,16 @@ namespace Google.GenAI {
     /// <param name="model">The name of the GenAI model to use for generation.</param>
     /// <param name="contents">A text string to send to the generative model.</param>
     /// <param name="config">A <see cref="GenerateContentConfig"/> instance that specifies the
-    /// optional configurations.</param> <returns>A <see cref="Task{GenerateContentResponse}"/> that
-    /// represents the asynchronous operation. The task result contains a <see
-    /// cref="GenerateContentResponse"/> instance with response contents and other
+    /// optional configurations.</param>
+    /// <param name="cancellationToken">A <see cref="CancellationToken"/> to cancel the operation.</param>
+    /// <returns>A <see cref="Task{GenerateContentResponse}"/> that represents the asynchronous operation. The task
+    /// result contains a <see cref="GenerateContentResponse"/> instance with response contents and other
     /// metadata.</returns>
     public async Task<GenerateContentResponse> GenerateContentAsync(
-        string model, string contents, GenerateContentConfig? config = null) {
+        string model, string contents, GenerateContentConfig? config = null,
+        CancellationToken cancellationToken = default) {
       List<Content> contentList = Transformers.TContents(contents) ?? new List<Content>();
-      return await GenerateContentAsync(model, contentList, config);
+      return await GenerateContentAsync(model, contentList, config, cancellationToken);
     }
 
     /// <summary>
@@ -5005,11 +5019,13 @@ namespace Google.GenAI {
     /// <param name="model">The name of the GenAI model to use for generation.</param>
     /// <param name="contents">A <see cref="List{Content}"/> to send to the generative
     /// model.</param> <param name="config">A <see cref="GenerateContentConfig"/> instance that
-    /// specifies the optional configurations.</param> <returns>An async enumerable of <see
-    /// cref="GenerateContentResponse"/> chunks.</returns>
+    /// specifies the optional configurations.</param>
+    /// <param name="cancellationToken">A <see cref="CancellationToken"/> to cancel the streaming operation.</param>
+    /// <returns>An async enumerable of <see cref="GenerateContentResponse"/> chunks.</returns>
     public async IAsyncEnumerable<GenerateContentResponse> GenerateContentStreamAsync(
-        string model, List<Content> contents, GenerateContentConfig? config = null) {
-      await foreach (var response in PrivateGenerateContentStreamAsync(model, contents, config)) {
+        string model, List<Content> contents, GenerateContentConfig? config = null,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default) {
+      await foreach (var response in PrivateGenerateContentStreamAsync(model, contents, config, cancellationToken)) {
         yield return response;
       }
     }
@@ -5020,12 +5036,14 @@ namespace Google.GenAI {
     /// <param name="model">The name of the GenAI model to use for generation.</param>
     /// <param name="contents">A <see cref="Content"/> instance to send to the generative
     /// model.</param> <param name="config">A <see cref="GenerateContentConfig"/> instance that
-    /// specifies the optional configurations.</param> <returns>An async enumerable of <see
-    /// cref="GenerateContentResponse"/> chunks.</returns>
+    /// specifies the optional configurations.</param>
+    /// <param name="cancellationToken">A <see cref="CancellationToken"/> to cancel the streaming operation.</param>
+    /// <returns>An async enumerable of <see cref="GenerateContentResponse"/> chunks.</returns>
     public async IAsyncEnumerable<GenerateContentResponse> GenerateContentStreamAsync(
-        string model, Content contents, GenerateContentConfig? config = null) {
+        string model, Content contents, GenerateContentConfig? config = null,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default) {
       List<Content> contentList = Transformers.TContents(contents) ?? new List<Content>();
-      await foreach (var response in GenerateContentStreamAsync(model, contentList, config)) {
+      await foreach (var response in GenerateContentStreamAsync(model, contentList, config, cancellationToken)) {
         yield return response;
       }
     }
@@ -5036,12 +5054,14 @@ namespace Google.GenAI {
     /// <param name="model">The name of the GenAI model to use for generation.</param>
     /// <param name="contents">A text string to send to the generative model.</param>
     /// <param name="config">A <see cref="GenerateContentConfig"/> instance that specifies the
-    /// optional configurations.</param> <returns>An async enumerable of <see
-    /// cref="GenerateContentResponse"/> chunks.</returns>
+    /// optional configurations.</param>
+    /// <param name="cancellationToken">A <see cref="CancellationToken"/> to cancel the streaming operation.</param>
+    /// <returns>An async enumerable of <see cref="GenerateContentResponse"/> chunks.</returns>
     public async IAsyncEnumerable<GenerateContentResponse> GenerateContentStreamAsync(
-        string model, string contents, GenerateContentConfig? config = null) {
+        string model, string contents, GenerateContentConfig? config = null,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default) {
       List<Content> contentList = Transformers.TContents(contents) ?? new List<Content>();
-      await foreach (var response in GenerateContentStreamAsync(model, contentList, config)) {
+      await foreach (var response in GenerateContentStreamAsync(model, contentList, config, cancellationToken)) {
         yield return response;
       }
     }
