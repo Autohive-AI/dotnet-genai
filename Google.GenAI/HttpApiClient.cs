@@ -87,6 +87,7 @@ namespace Google.GenAI
       string? apiKey,
       Types.HttpOptions? httpOptions
     ) : base(apiKey, httpOptions) { }
+
     public HttpApiClient(
         string? project,
         string? location,

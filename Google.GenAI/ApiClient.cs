@@ -15,6 +15,8 @@
  */
 
 using System.Collections.Immutable;
+using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -30,7 +32,13 @@ namespace Google.GenAI
   {
     private static readonly string SdkVersion = GetSdkVersion();
 
-    protected HttpMessageInvoker HttpClient { get; }
+    private static readonly HttpClient SharedHttpClient = new HttpClient(
+        new SocketsHttpHandler
+        {
+          PooledConnectionLifetime = TimeSpan.FromMinutes(2)
+        });
+
+    protected HttpClient HttpClient => SharedHttpClient;
 
     public string? ApiKey { get; }
 
@@ -66,8 +74,6 @@ namespace Google.GenAI
       {
         this.HttpOptions = MergeHttpOptions(customHttpOptions);
       }
-
-      this.HttpClient = CreateHttpClient(this.HttpOptions);
     }
 
     /// <summary>
@@ -105,17 +111,6 @@ namespace Google.GenAI
 
       this.ApiKey = null;
       this.VertexAI = true;
-      this.HttpClient = CreateHttpClient(this.HttpOptions);
-    }
-
-    private static HttpClient CreateHttpClient(HttpOptions httpOptions)
-    {
-      var client = new HttpClient();
-      if (httpOptions.Timeout != null)
-      {
-        client.Timeout = System.TimeSpan.FromMilliseconds(httpOptions.Timeout.Value);
-      }
-      return client;
     }
 
     /// <summary>
@@ -279,14 +274,7 @@ namespace Google.GenAI
 
     protected virtual void Dispose(bool disposing)
     {
-      if (Interlocked.CompareExchange(ref _disposed, 1, 0) != 0)
-      {
-        return;
-      }
-      if (disposing)
-      {
-        HttpClient?.Dispose();
-      }
+      Interlocked.CompareExchange(ref _disposed, 1, 0);
     }
 
     /// <summary>
@@ -296,11 +284,7 @@ namespace Google.GenAI
     public virtual ValueTask DisposeAsync()
     {
         Dispose();
-#if NETSTANDARD2_1
-        return new ValueTask(Task.CompletedTask);
-#else
         return ValueTask.CompletedTask;
-#endif
     }
 
     private static string GetSdkVersion()

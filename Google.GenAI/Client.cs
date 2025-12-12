@@ -18,8 +18,8 @@ using Google.Apis.Auth.OAuth2;
 
 namespace Google.GenAI {
   /// <summary>
-  /// Client for making synchronous requests.
-  /// Using this client to make a request to Gemini Developer API or Vertex AI API.
+  /// Client for making requests to Gemini Developer API or Vertex AI API.
+  /// This client uses a shared HttpClient instance for optimal performance and to avoid port exhaustion.
   /// </summary>
   public sealed class Client : IDisposable, IAsyncDisposable {
     private static string? geminiBaseUrl = null;
@@ -39,19 +39,21 @@ namespace Google.GenAI {
     /// Constructs a Client instance with the given parameters.
     /// </summary>
     /// <param name="vertexAI">Optional Boolean for whether to use Vertex AI APIs. If not specified
-    /// here nor in the environment variable, defaults to false.</param> <param
-    /// name="apiKey">Optional String for the <a
+    /// here nor in the environment variable, defaults to false.</param>
+    /// <param name="apiKey">Optional String for the <a
     /// href="https://ai.google.dev/gemini-api/docs/api-key">API key</a>. Gemini API only.</param>
     /// <param name="credential">Optional <see cref="Google.Apis.Auth.OAuth2.GoogleCredential"/>.
-    /// Vertex AI only.</param> <param name="project">Optional String for the project ID. Vertex AI
+    /// Vertex AI only.</param>
+    /// <param name="project">Optional String for the project ID. Vertex AI
     /// APIs only. Find your <a
     /// href="https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects">project
-    /// ID</a>.</param> <param name="location">Optional String for the <a
+    /// ID</a>.</param>
+    /// <param name="location">Optional String for the <a
     /// href="https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations">location</a>.
     /// Vertex AI APIs only.</param>
     /// <param name="httpOptions">Optional <see cref="Google.GenAI.Types.HttpOptions"/> for sending
-    /// HTTP requests.</param> <exception cref="System.ArgumentException">Thrown if the
-    /// project/location and API key are set together.</exception>
+    /// HTTP requests.</param>
+    /// <exception cref="System.ArgumentException">Thrown if the project/location and API key are set together.</exception>
     public Client(bool? vertexAI = null, string? apiKey = null, ICredential? credential = null,
                   string? project = null, string? location = null,
                   Types.HttpOptions? httpOptions = null) {
@@ -83,10 +85,12 @@ namespace Google.GenAI {
       string? baseUrl = inferBaseUrl(resolvedVertexAI, httpOptions);
       if (baseUrl != null && httpOptions is not null)
         httpOptions.BaseUrl = baseUrl;
+
       if (resolvedVertexAI)
         _apiClient = new HttpApiClient(project, location, credential, httpOptions);
       else
         _apiClient = new HttpApiClient(apiKey, httpOptions);
+
       Live = new Live(_apiClient);
       Models = new Models(_apiClient);
       Tunings = new Tunings(_apiClient);
